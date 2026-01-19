@@ -1,0 +1,100 @@
+/* Outer wrapper for centering + glow */
+.sidebar-wrapper {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  height: calc(100vh - 40px);
+  width: 300px;
+}
+
+/* Glassmorphic container */
+.sidebar {
+  height: 100%;
+  width: 100%;
+  background: rgba(15, 18, 24, 0.75);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 20px;
+  padding: 22px;
+  color: #cbd5e1;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.05),
+    0 20px 40px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  font-family: "Manrope", system-ui, sans-serif;
+  font-weight: 500;
+
+}
+
+/* Header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #e5e7eb;
+  margin-bottom: 28px;
+}
+
+/* MENU label */
+.sidebar-section {
+  font-size: 12px;
+  letter-spacing: 1px;
+  opacity: 0.5;
+  margin-bottom: 14px;
+}
+
+/* Menu container */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Menu item */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  letter-spacing: 0.15px;
+  color: #9ca3af;
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+}
+
+/* Active item (THIS IS THE KEY PART) */
+.menu-item.active {
+  background: linear-gradient(
+    90deg,
+    rgba(56,189,248,0.25),
+    rgba(56,189,248,0.05)
+  );
+  color: #7dd3fc;
+  box-shadow:
+    inset 0 0 0 1px rgba(56,189,248,0.35),
+    0 0 30px rgba(56,189,248,0.25);
+}
+
+/* Divider */
+.sidebar-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 24px 0;
+}
+
+/* Footer */
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
