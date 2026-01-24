@@ -7,3 +7,10 @@
 body {
   background-color: #020617;
 }
+
+.scan-page {
+  min-height: 100vh;
+  padding: 24px;
+  background-color: #020617;
+  font-family: Inter, system-ui, sans-serif;
+}
