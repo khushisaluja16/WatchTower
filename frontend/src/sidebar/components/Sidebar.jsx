@@ -32,9 +32,8 @@ function Sidebar() {
         <div className="sidebar-menu">
           <Link to="/dashboard" className="menu-link">
             <div
-              className={`menu-item ${
-                location.pathname === "/dashboard" ? "active" : ""
-              }`}
+              className={`menu-item ${location.pathname === "/dashboard" ? "active" : ""
+                }`}
             >
               <House size={20} weight="regular" />
               Dashboard
@@ -48,10 +47,14 @@ function Sidebar() {
           </div>
 
           {/* Methodology (disabled / not routed yet) */}
-          <div className="menu-item">
-            <ClipboardText size={20} weight="regular" />
-            Methodology
-          </div>
+          <Link to="/methodology" className="menu-link">
+  <div className={`menu-item ${location.pathname === "/methodology" ? "active" : ""}`}>
+    <ClipboardText size={20} weight="regular" />
+    Methodology
+  </div>
+</Link>
+
+
 
           <div className="menu-item">
             <FileText size={20} weight="regular" />

@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "./sidebar/components/Sidebar";
+import Methodology from "./pages/methodology/Methodology";
 import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
