@@ -5,7 +5,7 @@ import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <div style={{ outline: "none" }}>
+    <div style={{ margin: 0 }}>
       <App />
     </div>
   </BrowserRouter>

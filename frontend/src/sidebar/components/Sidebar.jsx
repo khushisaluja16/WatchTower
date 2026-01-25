@@ -1,4 +1,7 @@
+import { Link, useLocation } from "react-router-dom";
+
 import "../styles/sidebar.css";
+
 import {
   House,
   Play,
@@ -11,6 +14,9 @@ import {
 } from "phosphor-react";
 
 function Sidebar() {
+  // ✅ CORRECT PLACE
+  const location = useLocation();
+
   return (
     <div className="sidebar-wrapper">
       <div className="sidebar">
@@ -24,17 +30,26 @@ function Sidebar() {
 
         <div className="sidebar-menu">
 
-          <div className="menu-item">
-            <House size={20} weight="regular" />
-            Dashboard
-          </div>
+          {/* Dashboard */}
+          <Link to="/dashboard" className="menu-link">
+            <div
+              className={`menu-item ${
+                location.pathname === "/dashboard" ? "active" : ""
+              }`}
+            >
+              <House size={20} weight="regular" />
+              Dashboard
+            </div>
+          </Link>
 
+          {/* Start Scan (not wired yet) */}
           <div className="menu-item">
             <Play size={20} weight="regular" />
             Start Scan
           </div>
 
-          <div className="menu-item active">
+          {/* Methodology (disabled / not routed yet) */}
+          <div className="menu-item">
             <ClipboardText size={20} weight="regular" />
             Methodology
           </div>
