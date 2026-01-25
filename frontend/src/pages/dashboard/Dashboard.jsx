@@ -1,25 +1,19 @@
 const Dashboard = () => {
   return (
-    <div style={styles.page}>
-      <h2 style={styles.title}>Dashboard is working ✅</h2>
+    <div>
+      <h1 style={styles.title}>Dashboard is working ✅</h1>
     </div>
   );
 };
 
 const styles = {
-  page: { 
-    minHeight: "100vh",
-    padding: "24px",
-    background:
-      "radial-gradient(circle at top, #2b2e36 0%, #14161c 60%)",
-    color: "#e6e6e6",
-    fontFamily: "Inter, system-ui, sans-serif",
-  },
   title: {
     margin: 0,
-    fontWeight: "600",
+    fontSize: "28px",
+    fontWeight: 600,
+    color: "#e5e7eb",
+    fontFamily: "Inter, system-ui, sans-serif",
   },
 };
-
 
 export default Dashboard;

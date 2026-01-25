@@ -5,15 +5,16 @@ import Dashboard from "./pages/dashboard/Dashboard";
 function App() {
   return (
     <div style={styles.app}>
+      {/* Fixed sidebar */}
       <Sidebar />
 
-      {/* CONTENT AREA */}
-      <div style={styles.content}>
+      {/* Main content area */}
+      <main style={styles.main}>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
-      </div>
+      </main>
     </div>
   );
 }
@@ -21,12 +22,17 @@ function App() {
 const styles = {
   app: {
     minHeight: "100vh",
-    backgroundColor: "#14161c",
+    background: "#0b0f14",
   },
-  content: {
-    marginLeft: "320px",
-    paddingLeft: "24px",
-    paddingTop: "16px",
+  main: {
+    marginLeft: "320px", // ⬅️ FIX (300 + sidebar padding)
+    minHeight: "100vh",
+    background: "#1c2330",
+    padding: "32px 24px",
+    boxSizing: "border-box",
+    overflowY: "auto",
+
+    isolation: "isolate",
   },
 };
 

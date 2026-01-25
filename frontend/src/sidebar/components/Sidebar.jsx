@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
 import "../styles/sidebar.css";
-
+import Logo from "../logo/logowatchtower.png";
 import {
   House,
   Play,
@@ -10,27 +10,26 @@ import {
   Code,
   Gear,
   Question,
-  Shield
 } from "phosphor-react";
 
 function Sidebar() {
-  // ✅ CORRECT PLACE
-  const location = useLocation();
-
+  let location;
+  try {
+    location = useLocation();
+  } catch {
+    location = { pathname: "" };
+  }
   return (
     <div className="sidebar-wrapper">
       <div className="sidebar">
-
         <div className="sidebar-header">
-          <Shield size={22} weight="regular" />
-          <span>Vulnerability Scanner</span>
+          <img src={Logo} alt="WatchTower Logo" className="sidebar-logo" />
+          <span className="sidebar-title">WatchTower</span>
         </div>
 
         <div className="sidebar-section">MENU</div>
 
         <div className="sidebar-menu">
-
-          {/* Dashboard */}
           <Link to="/dashboard" className="menu-link">
             <div
               className={`menu-item ${
@@ -63,13 +62,11 @@ function Sidebar() {
             <Code size={20} weight="regular" />
             API
           </div>
-
         </div>
 
         <div className="sidebar-divider" />
 
         <div className="sidebar-footer">
-
           <div className="menu-item">
             <Gear size={20} weight="regular" />
             Settings
@@ -79,9 +76,7 @@ function Sidebar() {
             <Question size={20} weight="regular" />
             Help / About
           </div>
-
         </div>
-
       </div>
     </div>
   );
