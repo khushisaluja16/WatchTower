@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import "antd/dist/reset.css";
 
 import Sidebar from "./sidebar/components/Sidebar";
+import Methodology from "./pages/methodology/Methodology";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ScanResult from "./pages/scan/ScanResult";
 import Reports from "./pages/reports/Reports"; // ✅ FIX

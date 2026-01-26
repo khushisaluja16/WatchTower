@@ -116,3 +116,15 @@
   flex-direction: column;
   gap: 10px;
 }
+.menu-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.menu-link:visited,
+.menu-link:hover,
+.menu-link:active {
+  text-decoration: none;
+  color: inherit;
+}

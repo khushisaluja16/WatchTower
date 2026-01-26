@@ -59,6 +59,15 @@ function Sidebar() {
               Scan Result
             </div>
           </Link>
+          {/* Methodology (disabled / not routed yet) */}
+          <Link to="/methodology" className="menu-link">
+            <div
+              className={`menu-item ${location.pathname === "/methodology" ? "active" : ""}`}
+            >
+              <ClipboardText size={20} weight="regular" />
+              Methodology
+            </div>
+          </Link>
           <div className="menu-item">
             <FileText size={20} weight="regular" />
             Reports
