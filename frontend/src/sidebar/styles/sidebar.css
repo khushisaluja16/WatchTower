@@ -23,7 +23,6 @@
   flex-direction: column;
   font-family: "Manrope", system-ui, sans-serif;
 
-  box-shadow: inset -1px 0 0 rgba(56, 189, 248, 0.15);
 }
 
 /* Header (logo + title) */

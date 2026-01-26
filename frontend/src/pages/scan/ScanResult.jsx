@@ -1,17 +1,9 @@
-import ScanHeader from "../scan/ScanHeader";
-import ScanSummary from "../scan/ScanSummary";
-import DetectedPorts from "../scan/DetectedPorts";
-import ScanRecommendations from "../scan/ScanRecommendations";
+import React from 'react'
 
 const ScanResult = () => {
   return (
-    <div className="scan-page">
-      <ScanHeader />
-      <ScanSummary />
-      <DetectedPorts />
-      <ScanRecommendations />
-    </div>
-  );
-};
+    <div>ScanResult</div>
+  )
+}
 
-export default ScanResult;
+export default ScanResult
