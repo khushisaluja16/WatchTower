@@ -5,7 +5,7 @@ import Sidebar from "./sidebar/components/Sidebar";
 import Methodology from "./pages/methodology/Methodology";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ScanResult from "./pages/scan/ScanResult";
-import Reports from "./pages/reports/Reports"; // ✅ FIX
+import Reports from "./pages/reports/Reports"; 
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/scanResult" element={<ScanResult />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/methodology" element={<Methodology />} />
         </Routes>
       </main>
     </div>
