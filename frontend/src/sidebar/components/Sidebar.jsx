@@ -30,16 +30,19 @@ function Sidebar() {
         <div className="sidebar-section">MENU</div>
 
         <div className="sidebar-menu">
-          <Link to="/dashboard" className="menu-link">
-            <div
-              className={`menu-item ${
-                location.pathname === "/dashboard" ? "active" : ""
-              }`}
-            >
-              <House size={20} weight="regular" />
+          <Link
+            to="/dashboard"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            <div className="menu-item">
+              <House size={20} />
               Dashboard
             </div>
           </Link>
+
 
           {/* Start Scan (not wired yet) */}
           <div className="menu-item">
