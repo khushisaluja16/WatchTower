@@ -43,24 +43,24 @@ function Sidebar() {
             </div>
           </Link>
 
-
           {/* Start Scan (not wired yet) */}
           <div className="menu-item">
             <Play size={20} weight="regular" />
             Start Scan
           </div>
-
-          {/* Methodology (disabled / not routed yet) */}
-          <div className="menu-item">
-            <ClipboardText size={20} weight="regular" />
-            Methodology
-          </div>
-
+          <Link to="/scanResult" className="menu-link">
+            <div
+              className={`menu-item ${location.pathname === "/scanResult" ? "active" : ""
+                }`}
+            >
+              <Play size={20} weight="regular" />
+              Scan Result
+            </div>
+          </Link>
           <div className="menu-item">
             <FileText size={20} weight="regular" />
             Reports
           </div>
-
           <div className="menu-item">
             <Code size={20} weight="regular" />
             API
