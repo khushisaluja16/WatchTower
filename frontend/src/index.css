@@ -14,3 +14,7 @@ html, body, #root {
   height: 100%;
   background-color: #edf4f2;
 }
+.methodology-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+}
