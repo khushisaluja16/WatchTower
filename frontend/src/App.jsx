@@ -1,19 +1,23 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import "antd/dist/reset.css";
+
 import Sidebar from "./sidebar/components/Sidebar";
 import Methodology from "./pages/methodology/Methodology";
 import Dashboard from "./pages/dashboard/Dashboard";
+import ScanResult from "./pages/scan/ScanResult";
+import Reports from "./pages/reports/Reports"; 
 
 function App() {
   return (
     <div style={styles.app}>
-      {/* Fixed sidebar */}
       <Sidebar />
 
-      {/* Main content area */}
       <main style={styles.main}>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/scanResult" element={<ScanResult />} />
+          <Route path="/reports" element={<Reports />} />
           <Route path="/methodology" element={<Methodology />} />
         </Routes>
       </main>
@@ -27,15 +31,14 @@ const styles = {
     background: "#0b0f14",
   },
   main: {
-    marginLeft: "320px", // ⬅️ FIX (300 + sidebar padding)
-    minHeight: "100vh",
-    background: "#1c2330",
-    padding: "32px 24px",
-    boxSizing: "border-box",
-    overflowY: "auto",
-
-    isolation: "isolate",
-  },
+  marginLeft: "300px",
+  minHeight: "100vh",
+  background: "#edf4f2",
+  padding: "32px 24px",
+  boxSizing: "border-box",
+  overflowY: "auto",
+}
+,
 };
 
 export default App;

@@ -30,22 +30,35 @@ function Sidebar() {
         <div className="sidebar-section">MENU</div>
 
         <div className="sidebar-menu">
+          {" "}
+          <div className="menu-item">
+            <ClipboardText size={20} weight="regular" />
+            Methodology
+          </div>
           <Link to="/dashboard" className="menu-link">
             <div
-              className={`menu-item ${location.pathname === "/dashboard" ? "active" : ""
-                }`}
+              className={`menu-item ${
+                location.pathname === "/dashboard" ? "active" : ""
+              }`}
             >
               <House size={20} weight="regular" />
               Dashboard
             </div>
           </Link>
-
-          {/* Start Scan (not wired yet) */}
           <div className="menu-item">
             <Play size={20} weight="regular" />
             Start Scan
           </div>
-
+          <Link to="/scanResult" className="menu-link">
+            <div
+              className={`menu-item ${
+                location.pathname === "/scanResult" ? "active" : ""
+              }`}
+            >
+              <Play size={20} weight="regular" />
+              Scan Result
+            </div>
+          </Link>
           {/* Methodology (disabled / not routed yet) */}
           <Link to="/methodology" className="menu-link">
             <div className={`menu-item ${location.pathname === "/methodology" ? "active" : ""}`}>
@@ -60,7 +73,6 @@ function Sidebar() {
             <FileText size={20} weight="regular" />
             Reports
           </div>
-
           <div className="menu-item">
             <Code size={20} weight="regular" />
             API

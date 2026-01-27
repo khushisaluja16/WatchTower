@@ -11,7 +11,7 @@ const styles = {
     margin: 0,
     fontSize: "28px",
     fontWeight: 600,
-    color: "#e5e7eb",
+    color: "#000000",
     fontFamily: "Inter, system-ui, sans-serif",
   },
 };
