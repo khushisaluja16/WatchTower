@@ -48,11 +48,11 @@ function Sidebar() {
 
           {/* Methodology (disabled / not routed yet) */}
           <Link to="/methodology" className="menu-link">
-  <div className={`menu-item ${location.pathname === "/methodology" ? "active" : ""}`}>
-    <ClipboardText size={20} weight="regular" />
-    Methodology
-  </div>
-</Link>
+            <div className={`menu-item ${location.pathname === "/methodology" ? "active" : ""}`}>
+              <ClipboardText size={20} weight="regular" />
+              Methodology
+            </div>
+          </Link>
 
 
 

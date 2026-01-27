@@ -14,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/methodology" element={<Methodology />} />
         </Routes>
       </main>
     </div>
