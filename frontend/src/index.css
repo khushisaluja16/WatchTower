@@ -8,8 +8,9 @@ body {
   background-color: #edf4f2;
 }
 
-
-html, body, #root {
+html,
+body,
+#root {
   margin: 0;
   height: 100%;
   background-color: #edf4f2;
@@ -30,7 +31,6 @@ html, body, #root {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
 }
 
-
 @keyframes gradientMove {
   0% {
     background-position: 0% 50%;
@@ -38,5 +38,13 @@ html, body, #root {
   100% {
     background-position: 200% 50%;
   }
+}
+
+.ant-card {
+  border-radius: 12px;
+}
+
+.ant-card-head-title {
+  font-weight: 600;
 }
 

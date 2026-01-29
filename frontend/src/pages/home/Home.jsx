@@ -5,6 +5,8 @@ import {
   Globe,
   Lightning,
 } from "phosphor-react";
+import {Breadcrumb } from "antd";
+
 import { useEffect, useState } from "react";
 function AnimatedStat({ value, label }) {
   const [count, setCount] = useState(0);
@@ -38,6 +40,8 @@ export default function Methodology() {
   return (
     <div style={styles.container}>
       {/* ================= HERO ================= */}
+      <Breadcrumb items={[{ title: "Home" }, { title: "" }]} />
+
       <div style={styles.hero}>
         <div>
           <h1 style={styles.title}>WatchTower</h1>
@@ -54,12 +58,11 @@ export default function Methodology() {
       </div>
 
       {/* ================= STATS ================= */}
-     <div style={styles.statsGrid}>
-  {stats.map((s, i) => (
-    <AnimatedStat key={i} value={s.value} label={s.label} />
-  ))}
-</div>
-
+      <div style={styles.statsGrid}>
+        {stats.map((s, i) => (
+          <AnimatedStat key={i} value={s.value} label={s.label} />
+        ))}
+      </div>
 
       {/* ================= INTELLIGENCE MODULES ================= */}
       <h2 style={styles.sectionTitle}>Security Intelligence Modules</h2>
@@ -90,20 +93,18 @@ export default function Methodology() {
       </div>
       <h2 style={styles.sectionTitle}>Recent Threat Activity</h2>
 
-<div style={styles.timeline}>
-  {timeline.map((t, i) => (
-    <div key={i} style={styles.timelineItem}>
-      <span style={styles.timelineDot} />
-      <div>
-        <p style={styles.timelineText}>{t.text}</p>
-        <span style={styles.timelineTime}>{t.time}</span>
+      <div style={styles.timeline}>
+        {timeline.map((t, i) => (
+          <div key={i} style={styles.timelineItem}>
+            <span style={styles.timelineDot} />
+            <div>
+              <p style={styles.timelineText}>{t.text}</p>
+              <span style={styles.timelineTime}>{t.time}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
-  ))}
-</div>
-
-    </div>
-    
   );
 }
 
@@ -119,26 +120,22 @@ const stats = [
 const features = [
   {
     title: "Live Attack Surface",
-    text:
-      "Continuously maps exposed endpoints, domains, and services to maintain full visibility of your attack surface.",
+    text: "Continuously maps exposed endpoints, domains, and services to maintain full visibility of your attack surface.",
     icon: <Globe size={24} />,
   },
   {
     title: "Automated Threat Detection",
-    text:
-      "Identifies common and emerging vulnerabilities using automated security scanning techniques.",
+    text: "Identifies common and emerging vulnerabilities using automated security scanning techniques.",
     icon: <MagnifyingGlass size={24} />,
   },
   {
     title: "Threat Intelligence Engine",
-    text:
-      "Correlates detected issues with known vulnerability patterns and security best practices.",
+    text: "Correlates detected issues with known vulnerability patterns and security best practices.",
     icon: <Bug size={24} />,
   },
   {
     title: "Risk Prioritization",
-    text:
-      "Ranks vulnerabilities based on severity and exploitability to focus remediation efforts.",
+    text: "Ranks vulnerabilities based on severity and exploitability to focus remediation efforts.",
     icon: <ShieldCheck size={24} />,
   },
 ];
@@ -146,29 +143,34 @@ const features = [
 const workflow = [
   {
     title: "Surface Enumeration",
-    text:
-      "Identifies all reachable assets, endpoints, and exposed services within the target environment.",
+    text: "Identifies all reachable assets, endpoints, and exposed services within the target environment.",
   },
   {
     title: "Exposure Mapping",
-    text:
-      "Analyzes open ports and access points to understand potential attack paths.",
+    text: "Analyzes open ports and access points to understand potential attack paths.",
   },
   {
     title: "Fingerprinting",
-    text:
-      "Detects technologies and software versions to identify outdated or insecure components.",
+    text: "Detects technologies and software versions to identify outdated or insecure components.",
   },
   {
     title: "Risk Scoring",
-    text:
-      "Evaluates vulnerabilities to determine security impact and remediation priority.",
+    text: "Evaluates vulnerabilities to determine security impact and remediation priority.",
   },
 ];
 const timeline = [
-  { text: "SQL Injection attempt detected on /login endpoint", time: "2 minutes ago" },
-  { text: "Outdated Apache service identified on target host", time: "12 minutes ago" },
-  { text: "New scan initiated for api.watchtower.local", time: "28 minutes ago" },
+  {
+    text: "SQL Injection attempt detected on /login endpoint",
+    time: "2 minutes ago",
+  },
+  {
+    text: "Outdated Apache service identified on target host",
+    time: "12 minutes ago",
+  },
+  {
+    text: "New scan initiated for api.watchtower.local",
+    time: "28 minutes ago",
+  },
   { text: "Cross-Site Scripting vulnerability flagged", time: "1 hour ago" },
 ];
 
@@ -188,6 +190,7 @@ const styles = {
   },
 
   title: {
+    marginTop: "5px",
     fontSize: "44px",
     fontWeight: "800",
     marginBottom: "6px",
@@ -326,41 +329,39 @@ const styles = {
     lineHeight: "1.6",
   },
   timeline: {
-  marginTop: "10px",
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
-},
+    marginTop: "10px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+  },
 
-timelineItem: {
-  display: "flex",
-  gap: "14px",
-  alignItems: "flex-start",
-  background: "#ffffff",
-  padding: "16px",
-  borderRadius: "14px",
-  border: "1px solid rgba(0,0,0,0.08)",
-},
+  timelineItem: {
+    display: "flex",
+    gap: "14px",
+    alignItems: "flex-start",
+    background: "#ffffff",
+    padding: "16px",
+    borderRadius: "14px",
+    border: "1px solid rgba(0,0,0,0.08)",
+  },
 
-timelineDot: {
-  width: "10px",
-  height: "10px",
-  marginTop: "6px",
-  borderRadius: "50%",
-  background: "#ef4444",
-  boxShadow: "0 0 8px rgba(239,68,68,0.6)",
-},
+  timelineDot: {
+    width: "10px",
+    height: "10px",
+    marginTop: "6px",
+    borderRadius: "50%",
+    background: "#ef4444",
+    boxShadow: "0 0 8px rgba(239,68,68,0.6)",
+  },
 
-timelineText: {
-  fontSize: "14px",
-  fontWeight: "500",
-  color: "#0f172a",
-},
+  timelineText: {
+    fontSize: "14px",
+    fontWeight: "500",
+    color: "#0f172a",
+  },
 
-timelineTime: {
-  fontSize: "12px",
-  color: "#64748b",
-},
-
+  timelineTime: {
+    fontSize: "12px",
+    color: "#64748b",
+  },
 };
-
