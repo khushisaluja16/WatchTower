@@ -42,13 +42,13 @@ function Sidebar() {
               Dashboard
             </div>
           </Link>
-          <Link to="/methodology" className="menu-link">
+          <Link to="/home" className="menu-link">
             <div
-              className={`menu-item ${location.pathname === "/methodology" ? "active" : ""
+              className={`menu-item ${location.pathname === "/home" ? "active" : ""
                 }`}
             >
               <ClipboardText size={20} weight="regular" />
-              Methodology
+              Home
             </div>
           </Link>
   
