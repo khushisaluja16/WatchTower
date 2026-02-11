@@ -136,7 +136,7 @@ const ScanResult = () => {
       </Row>
       {/* Recommendations */}
       <Row gutter={16} style={{ marginBottom: 24 }}>
-        <Col span={14}>
+        <Col span={24}>
           <Card title="Recommendations">
             <ul style={{ paddingLeft: 20, margin: 0 }}>
               <li>Upgrade Apache to version 2.4.49 for security patches.</li>
@@ -148,25 +148,7 @@ const ScanResult = () => {
           </Card>
         </Col>
 
-        <Col span={10}>
-          <Card title="Recent Security Incidents">
-            <Row justify="space-between">
-              <Text>Jan, 2024</Text>
-              <Text>Data Privacy Breach</Text>
-              <Text type="warning">Medium</Text>
-            </Row>
-            <Row justify="space-between">
-              <Text>Dec, 2023</Text>
-              <Text>Workplace Safety</Text>
-              <Text type="danger">High</Text>
-            </Row>
-            <Row justify="space-between">
-              <Text>Oct, 2023</Text>
-              <Text>Environmental Compliance</Text>
-              <Text type="success">Low</Text>
-            </Row>
-          </Card>
-        </Col>
+        
       </Row>
       {/* tables  */}
       <Row gutter={16}>

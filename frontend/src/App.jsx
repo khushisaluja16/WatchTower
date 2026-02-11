@@ -5,7 +5,7 @@ import Sidebar from "./sidebar/components/Sidebar";
 import Home from "./pages/home/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ScanResult from "./pages/scan/ScanResult";
-import Reports from "./pages/reports/Reports"; 
+import Reports from "./pages/reports/Reports";
 
 function App() {
   return (
@@ -18,7 +18,6 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/scanResult" element={<ScanResult />} />
           <Route path="/reports" element={<Reports />} />
-          <Route path="/home" element={<Home />} />
         </Routes>
       </main>
     </div>
@@ -27,18 +26,19 @@ function App() {
 
 const styles = {
   app: {
+    display: "flex", 
     minHeight: "100vh",
-    background: "#0b0f14",
+    background: "#edf4f2",
   },
+
   main: {
-  marginLeft: "300px",
-  minHeight: "100vh",
-  background: "#edf4f2",
-  padding: "32px 24px",
-  boxSizing: "border-box",
-  overflowY: "auto",
-}
-,
+    flex: 1, 
+    minHeight: "100vh",
+    padding: "32px 24px",
+    boxSizing: "border-box",
+    overflowY: "auto",
+    
+  },
 };
 
 export default App;

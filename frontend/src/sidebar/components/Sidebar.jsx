@@ -2,15 +2,13 @@ import { Link, useLocation } from "react-router-dom";
 
 import "../styles/sidebar.css";
 import Logo from "../logo/logowatchtower.png";
+import { House, Code, Gear, Question } from "phosphor-react";
 import {
-  House,
-  Play,
-  ClipboardText,
-  FileText,
-  Code,
-  Gear,
-  Question,
-} from "phosphor-react";
+  DashboardOutlined,
+  FileTextOutlined,
+  ScanOutlined,
+  SecurityScanOutlined,
+} from "@ant-design/icons";
 
 function Sidebar() {
   let location;
@@ -30,6 +28,16 @@ function Sidebar() {
         <div className="sidebar-section">MENU</div>
 
         <div className="sidebar-menu">
+          <Link to="/home" className="menu-link">
+            <div
+              className={`menu-item ${
+                location.pathname === "/home" ? "active" : ""
+              }`}
+            >
+              <House size={20} weight="regular" />
+              Home
+            </div>
+          </Link>
           <Link
             to="/dashboard"
             style={{
@@ -38,45 +46,45 @@ function Sidebar() {
             }}
           >
             <div className="menu-item">
-              <House size={20} />
+              <DashboardOutlined size={20} />
               Dashboard
             </div>
           </Link>
-          <Link to="/home" className="menu-link">
+          <Link to="/scans" className="menu-link">
             <div
-              className={`menu-item ${location.pathname === "/home" ? "active" : ""
-                }`}
+              className={`menu-item ${
+                location.pathname === "/scans" ? "active" : ""
+              }`}
             >
-              <ClipboardText size={20} weight="regular" />
-              Home
+              <ScanOutlined size={20} weight="regular" />
+              Scans
             </div>
           </Link>
-  
-          {/* Start Scan (not wired yet) */}
-          <div className="menu-item">
-            <Play size={20} weight="regular" />
-            Start Scan
-          </div>
           <Link to="/scanResult" className="menu-link">
             <div
-              className={`menu-item ${location.pathname === "/scanResult" ? "active" : ""
-                }`}
+              className={`menu-item ${
+                location.pathname === "/scanResult" ? "active" : ""
+              }`}
             >
-              <Play size={20} weight="regular" />
+              <SecurityScanOutlined size={20} weight="regular" />
               Scan Result
             </div>
           </Link>
-          <div className="menu-item">
-            <FileText size={20} weight="regular" />
-            Reports
-          </div>
+          <Link to="/reports" className="menu-link">
+            <div
+              className={`menu-item ${
+                location.pathname === "/reports" ? "active" : ""
+              }`}
+            >
+              <FileTextOutlined size={20} weight="regular" />
+              Reports
+            </div>
+          </Link>
           <div className="menu-item">
             <Code size={20} weight="regular" />
             API
           </div>
         </div>
-
-        <div className="sidebar-divider" />
 
         <div className="sidebar-footer">
           <div className="menu-item">

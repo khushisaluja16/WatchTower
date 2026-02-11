@@ -1,28 +1,28 @@
 /* Outer wrapper */
 .sidebar-wrapper {
-  position: fixed;
-  left: 0;
+  position: sticky;
   top: 0;
   height: 100vh;
-  width: 300px;
-  z-index: 100;
+  width: 200px;
+  flex-shrink: 0; /* VERY IMPORTANT */
 }
 
 /* Sidebar container */
 .sidebar {
   height: 100%;
   width: 100%;
-  background: rgba(15, 18, 24, 0.92);
+  background: #07090d;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 
-  padding: 16px;
+  padding: 14px 10px;
   color: #cbd5e1;
 
   display: flex;
   flex-direction: column;
   font-family: "Manrope", system-ui, sans-serif;
-
+  border-right: 1px solid #11161c;
+  box-shadow: 2px 0 14px rgba(0, 0, 0, 0.35);
 }
 
 /* Header (logo + title) */
@@ -32,26 +32,26 @@
   justify-content: flex-start;
   gap: 8px;
 
-  padding: 6px 4px;
-  margin-bottom: 28px;
+  padding: 4px 6px;
+  margin-bottom: 18px;
 }
 
 /* Logo */
 .sidebar-logo {
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 /* Title */
 .sidebar-title {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.2px;
   line-height: 1;
   white-space: nowrap;
-
+  color: #f1f5f9;
   background: linear-gradient(90deg, #e5e7eb, #7dd3fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -69,7 +69,7 @@
 .sidebar-menu {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 /* Menu item */
@@ -77,49 +77,56 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 12px 14px;
-  border-radius: 14px;
+
+  width: 100%; /* 🔴 key */
+  padding: 10px 16px;
+  border-radius: 12px;
+
   cursor: pointer;
+  letter-spacing: 0.15px;
   color: #9ca3af;
   transition: all 0.25s ease;
+  box-sizing: border-box; /* prevents overflow glow */
 }
 
 /* Hover */
 .menu-item:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: #e5e7eb;
+  background: rgba(255, 255, 255, 0.04);
+  /* color: #e5e7eb; */
 }
 
 /* Active */
 .menu-item.active {
   background: linear-gradient(
     90deg,
-    rgba(56, 189, 248, 0.25),
+    rgba(56, 189, 248, 0.2),
     rgba(56, 189, 248, 0.05)
   );
+
   color: #7dd3fc;
+
   box-shadow:
     inset 0 0 0 1px rgba(56, 189, 248, 0.35),
-    0 0 30px rgba(56, 189, 248, 0.25);
-}
-
-/* Divider */
-.sidebar-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-  margin: 24px 0;
+    0 0 22px rgba(56, 189, 248, 0.25);
 }
 
 /* Footer */
 .sidebar-footer {
+  margin-top: auto;
+  width: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
+  padding-top: 10px;
 }
 .menu-link {
   text-decoration: none;
   color: inherit;
   display: block;
+}
+
+.menu-item svg {
+  min-width: 20px;
 }
 
 .menu-link:visited,
