@@ -1,0 +1,20 @@
+.newScanBtn {
+  transition: all 0.2s ease;
+}
+
+.newScanBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(59,130,246,0.35);
+}
+.summary-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.summary-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  cursor: pointer;
+}
+.summary-card:active {
+  transform: translateY(-2px) scale(0.98);
+}
+

@@ -38,18 +38,13 @@ function Sidebar() {
               Home
             </div>
           </Link>
-          <Link
-            to="/dashboard"
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-            <div className="menu-item">
-              <DashboardOutlined size={20} />
+          <Link to="/dashboard" className="menu-link">
+            <div className={`menu-item ${location.pathname === "/dashboard" ? "active" : ""}`}>
+              <DashboardOutlined style={{ fontSize: "20px" }} />
               Dashboard
             </div>
           </Link>
+
           <Link to="/scans" className="menu-link">
             <div
               className={`menu-item ${
