@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import "antd/dist/reset.css";
 
 import Sidebar from "./sidebar/components/Sidebar";
-import Home from "./pages/home/Home";
+import Home from "./pages/home/Home"
 import Dashboard from "./pages/dashboard/Dashboard";
 import ScanResult from "./pages/scan/ScanResult";
 import Reports from "./pages/reports/Reports";
@@ -16,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path ="/home" element ={<Home/>} />
           <Route path="/scanResult" element={<ScanResult />} />
           <Route path="/reports" element={<Reports />} />
         </Routes>
