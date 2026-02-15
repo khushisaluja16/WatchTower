@@ -23,12 +23,36 @@ body,
 
 /* Animated gradient glow */
 .hover-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
 }
 
 .hover-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 45px rgba(37, 99, 235, 0.18);
+}
+.hover-card:hover .icon-animate {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+.icon-animate {
+  transition: transform 0.25s ease;
+}
+.fade-in {
+  animation: fadeInUp 0.6s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes gradientMove {
@@ -46,5 +70,18 @@ body,
 
 .ant-card-head-title {
   font-weight: 600;
+}
+/* Staggered fade-up animation */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: staggerFadeUp 0.6s ease forwards;
+}
+
+@keyframes staggerFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 

@@ -5,7 +5,8 @@ import {
   Globe,
   Lightning,
 } from "phosphor-react";
-import {Breadcrumb } from "antd";
+import { Breadcrumb } from "antd";
+import { Users, Wrench, Buildings } from "phosphor-react";
 
 import { useEffect, useState } from "react";
 function AnimatedStat({ value, label }) {
@@ -58,18 +59,28 @@ export default function Methodology() {
       </div>
 
       {/* ================= STATS ================= */}
-      <div style={styles.statsGrid}>
+      <div style={styles.statsGrid} className="fade-in">
         {stats.map((s, i) => (
           <AnimatedStat key={i} value={s.value} label={s.label} />
         ))}
       </div>
+      <div style={styles.separator} />
 
       {/* ================= INTELLIGENCE MODULES ================= */}
-      <h2 style={styles.sectionTitle}>Security Intelligence Modules</h2>
+      <h2 style={styles.sectionTitle} className="fade-in">Security Intelligence Modules</h2>
 
-      <div style={styles.featureGrid}>
+      <div style={styles.modulesGrid}>
+
         {features.map((f, i) => (
-          <div key={i} style={styles.featureCard} className="hover-card">
+          <div
+            key={i}
+            style={{
+              ...styles.featureCard,
+              animationDelay: `${i * 0.12}s`,
+            }}
+            className="hover-card stagger-item"
+          >
+
             <div style={styles.featureIcon}>{f.icon}</div>
             <div>
               <h3 style={styles.featureTitle}>{f.title}</h3>
@@ -78,29 +89,80 @@ export default function Methodology() {
           </div>
         ))}
       </div>
+      <div style={styles.separator} />
 
-      {/* ================= WORKFLOW ================= */}
-      <h2 style={styles.sectionTitle}>How WatchTower Operates</h2>
+      <h2 style={styles.sectionTitle} className="fade-in">What WatchTower Does</h2>
 
-      <div style={styles.workflow}>
-        {workflow.map((w, i) => (
-          <div key={i} style={styles.workflowCard} className="hover-card">
-            <span style={styles.workflowIndex}>0{i + 1}</span>
-            <h3 style={styles.workflowTitle}>{w.title}</h3>
-            <p style={styles.workflowText}>{w.text}</p>
+      <div style={styles.featureGrid}>
+        {whatItDoes.map((item, index) => (
+          <div
+            key={index}
+            style={{
+              ...styles.featureCard,
+              animationDelay: `${index * 0.12}s`,
+            }}
+            className="hover-card stagger-item"
+          >
+
+            <div style={styles.featureIcon} className="icon-animate">
+              {item.icon}
+            </div>
+
+            <div>
+              <h3 style={styles.featureTitle}>{item.title}</h3>
+              <p style={styles.featureText}>{item.text}</p>
+            </div>
           </div>
         ))}
       </div>
-      <h2 style={styles.sectionTitle}>Recent Threat Activity</h2>
+      <div style={styles.separator} />
 
-      <div style={styles.timeline}>
-        {timeline.map((t, i) => (
-          <div key={i} style={styles.timelineItem}>
-            <span style={styles.timelineDot} />
-            <div>
-              <p style={styles.timelineText}>{t.text}</p>
-              <span style={styles.timelineTime}>{t.time}</span>
+      <h2 style={styles.sectionTitle} className="fade-in">Who WatchTower Is Built For</h2>
+
+      <div style={styles.audienceGrid}>
+        {audience.map((item, index) => (
+          <div
+            key={index}
+            style={{
+              ...styles.audienceCard,
+              animationDelay: `${index * 0.12}s`,
+            }}
+            className="hover-card stagger-item"
+          >
+
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={styles.featureIcon} className="icon-animate">
+                {item.icon}
+              </div>
+
+              <h3 style={styles.audienceTitle}>{item.title}</h3>
             </div>
+
+            <p style={styles.audienceText}>{item.text}</p>
+          </div>
+        ))}
+      </div>
+      <div style={styles.separator} />
+
+
+      {/* ================= WORKFLOW ================= */}
+      <h2 style={styles.sectionTitle} className="fade-in">How WatchTower Operates</h2>
+
+      <div style={styles.modulesGrid}>
+
+        {workflow.map((w, i) => (
+          <div
+            key={i}
+            style={{
+              ...styles.workflowCard,
+              animationDelay: `${i * 0.12}s`,
+            }}
+            className="hover-card stagger-item"
+          >
+
+            <span style={styles.workflowIndex}>0{i + 1}</span>
+            <h3 style={styles.workflowTitle}>{w.title}</h3>
+            <p style={styles.workflowText}>{w.text}</p>
           </div>
         ))}
       </div>
@@ -139,6 +201,47 @@ const features = [
     icon: <ShieldCheck size={24} />,
   },
 ];
+const whatItDoes = [
+  {
+    title: "Continuous Attack Surface Visibility",
+    text:
+      "Continuously analyzes exposed endpoints, services, and entry points that could be targeted by attackers.",
+    icon: <Globe size={24} />,
+  },
+  {
+    title: "Automated Vulnerability Identification",
+    text:
+      "Automatically scans for security weaknesses such as misconfigurations, outdated services, and injection flaws.",
+    icon: <MagnifyingGlass size={24} />,
+  },
+  {
+    title: "Risk-Focused Security Insights",
+    text:
+      "Analyzes and prioritizes detected vulnerabilities based on potential impact and exploitability.",
+    icon: <ShieldCheck size={24} />,
+  },
+];
+const audience = [
+  {
+    title: "Developers",
+    text:
+      "Identify security issues early in development and reduce exposure before deployment.",
+    icon: <Wrench size={22} />,
+  },
+  {
+    title: "Security Teams",
+    text:
+      "Gain continuous visibility into vulnerabilities without relying on manual testing.",
+    icon: <Users size={22} />,
+  },
+  {
+    title: "Organizations",
+    text:
+      "Improve security posture and reduce risk across applications and infrastructure.",
+    icon: <Buildings size={22} />,
+  },
+];
+
 
 const workflow = [
   {
@@ -157,21 +260,6 @@ const workflow = [
     title: "Risk Scoring",
     text: "Evaluates vulnerabilities to determine security impact and remediation priority.",
   },
-];
-const timeline = [
-  {
-    text: "SQL Injection attempt detected on /login endpoint",
-    time: "2 minutes ago",
-  },
-  {
-    text: "Outdated Apache service identified on target host",
-    time: "12 minutes ago",
-  },
-  {
-    text: "New scan initiated for api.watchtower.local",
-    time: "28 minutes ago",
-  },
-  { text: "Cross-Site Scripting vulnerability flagged", time: "1 hour ago" },
 ];
 
 /* ================= STYLES ================= */
@@ -259,7 +347,7 @@ const styles = {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
     gap: "22px",
-    marginBottom: "48px",
+    marginBottom: "32px",
   },
 
   featureCard: {
@@ -364,4 +452,74 @@ const styles = {
     fontSize: "12px",
     color: "#64748b",
   },
+  infoGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gap: "22px",
+    marginBottom: "48px",
+  },
+
+  infoCard: {
+    background: "var(--card-bg)",
+    padding: "22px",
+    borderRadius: "18px",
+    border: "1px solid var(--card-border)",
+  },
+
+  infoTitle: {
+    fontSize: "16px",
+    fontWeight: "600",
+    marginBottom: "8px",
+    color: "var(--text-primary)",
+  },
+
+  infoText: {
+    fontSize: "14px",
+    lineHeight: "1.7",
+    color: "var(--text-secondary)",
+  },
+
+  audienceGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+    gap: "22px",
+    marginBottom: "48px",
+  },
+
+  audienceCard: {
+    background: "#ffffff",
+    padding: "22px",
+    borderRadius: "18px",
+    border: "1px solid rgba(0,0,0,0.08)",
+    display: "flex",
+    flexDirection: "column",
+    gap: "6px",
+  },
+
+
+  audienceTitle: {
+    fontSize: "16px",
+    fontWeight: "600",
+    marginBottom: "8px",
+    color: "var(--text-primary)",
+  },
+
+  audienceText: {
+    fontSize: "14px",
+    lineHeight: "1.6",
+    color: "var(--text-secondary)",
+  },
+  modulesGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gap: "22px",
+    marginBottom: "48px",
+  },
+  separator: {
+    height: "1px",
+    background:
+      "linear-gradient(to right, transparent, rgba(0,0,0,0.12), transparent)",
+    margin: "56px 0",
+  },
+
 };
