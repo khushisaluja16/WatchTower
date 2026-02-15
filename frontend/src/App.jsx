@@ -14,7 +14,7 @@ function App() {
 
       <main style={styles.main}>
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path ="/home" element ={<Home/>} />
           <Route path="/scanResult" element={<ScanResult />} />
