@@ -6,6 +6,7 @@ import Home from "./pages/home/Home"
 import Dashboard from "./pages/dashboard/Dashboard";
 import ScanResult from "./pages/scan/ScanResult";
 import Reports from "./pages/reports/Reports";
+import Scans from "./pages/scan/Scans";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path ="/home" element ={<Home/>} />
-          <Route path="/scanResult" element={<ScanResult />} />
+          <Route path = "/scans" element={<Scans />}/>
+          <Route path="/scan-result" element={<ScanResult />} />
           <Route path="/reports" element={<Reports />} />
         </Routes>
       </main>
