@@ -1,0 +1,1 @@
+#scans the table. Relationship and enitiy management. 

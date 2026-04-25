@@ -1,0 +1,1 @@
+# will have all the environemnt variables. DB configs and constants  

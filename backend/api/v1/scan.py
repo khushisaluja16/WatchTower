@@ -1,0 +1,1 @@
+#responsible for scan start scan status and scan result. POST GET GET. Accepts the valid request. Validate the input and Call the service layer. 
