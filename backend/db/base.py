@@ -1,1 +1,0 @@
-#base class for all models. All DB models inherit from this class. 

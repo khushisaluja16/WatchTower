@@ -7,6 +7,9 @@ dist/
 # Environment files
 .env
 
-# OS files
-.DS_Store
-Thumbs.db
+# Python cache
+_pycache_/
+*.pyc
+
+# Virtual environment
+venv/
