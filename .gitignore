@@ -8,7 +8,7 @@ dist/
 .env
 
 # Python cache
-_pycache_/
+__pycache__/
 *.pyc
 
 # Virtual environment
