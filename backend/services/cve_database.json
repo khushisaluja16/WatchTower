@@ -1,0 +1,22 @@
+{
+  "Apache": {
+    "2.4.49": [
+      {
+        "cve": "CVE-2021-41773",
+        "severity": "Critical",
+        "description": "Path traversal vulnerability",
+        "recommendation": "Upgrade to Apache 2.4.58+"
+      }
+    ]
+  },
+  "OpenSSH": {
+    "8.2": [
+      {
+        "cve": "CVE-2020-15778",
+        "severity": "High",
+        "description": "Command injection vulnerability",
+        "recommendation": "Upgrade OpenSSH"
+      }
+    ]
+  }
+}
