@@ -71,28 +71,28 @@ const Dashboard = () => {
   const [selectedFilter, setSelectedFilter] = useState(null);
 
   const data = [
-  {
-    id: "dfd9fc7",
-    target: "example.com",
-    issues: "High",
-    risk: "Medium",
-    date: "April 2023",
-  },
-  {
-    id: "b7c450a4",
-    target: "example.org",
-    issues: "High",
-    risk: "Low",
-    date: "April 2023",
-  },
-  {
-    id: "c653fdbb",
-    target: "testsite.com",
-    issues: "High",
-    risk: "Low",
-    date: "April 2023",
-  },
-];
+    {
+      id: "dfd9fc7",
+      target: "example.com",
+      issues: "High",
+      risk: "Medium",
+      date: "April 2023",
+    },
+    {
+      id: "b7c450a4",
+      target: "example.org",
+      issues: "High",
+      risk: "Low",
+      date: "April 2023",
+    },
+    {
+      id: "c653fdbb",
+      target: "testsite.com",
+      issues: "High",
+      risk: "Low",
+      date: "April 2023",
+    },
+  ];
   const filteredData = selectedFilter
     ? data.filter(item => item.issues === selectedFilter)
     : data;
@@ -107,18 +107,15 @@ const Dashboard = () => {
         
   return (
     <div style={styles.page}>
-
       {/* Breadcrumb */}
       <p style={styles.breadcrumb}>Home / Dashboard</p>
 
       {/* Header Row */}
-      <div style={styles.headerRow}>
-
+      <div style={styles.headerRow} className="dashboard-header">
         <h1 style={styles.title}>Dashboard</h1>
 
-        <div style={styles.headerActions}>
+        <div style={styles.headerActions} className="dashboard-header-actions">
           <div style={styles.dropdownWrapper}>
-
             <button
               style={styles.dropdownButton}
               onClick={() => setOpenDropdown(!openDropdown)}
@@ -128,36 +125,32 @@ const Dashboard = () => {
 
             {openDropdown && (
               <div style={styles.dropdownMenu}>
-                {["Last 24 hours", "Last 7 days", "Last 30 days"].map((option) => (
-                  <div
-                    key={option}
-                    style={styles.dropdownItem}
-                    onClick={() => {
-                      setTimeRange(option);
-                      setOpenDropdown(false);
-                    }}
-                  >
-                    {option}
-                  </div>
-                ))}
+                {["Last 24 hours", "Last 7 days", "Last 30 days"].map(
+                  (option) => (
+                    <div
+                      key={option}
+                      style={styles.dropdownItem}
+                      onClick={() => {
+                        setTimeRange(option);
+                        setOpenDropdown(false);
+                      }}
+                    >
+                      {option}
+                    </div>
+                  ),
+                )}
               </div>
             )}
-
           </div>
 
-
-          <button
-            className="newScanBtn"
-            style={styles.newScanButton}
-          >
+          <button className="newScanBtn" style={styles.newScanButton}>
             + New Scan
           </button>
         </div>
-
       </div>
 
       {/* Summary Cards */}
-      <div style={styles.cardsRow} >
+      <div style={styles.cardsRow} className="dashboard-cards">
         <SummaryCard
           title="Scans"
           value="32"
@@ -192,13 +185,12 @@ const Dashboard = () => {
       </div>
 
       {/* Two Column Section */}
-      <div style={styles.twoColumn}>
+      <div style={styles.twoColumn} className="dashboard-two-column">
         <div style={styles.cardLarge}>
           <h3 style={{ marginBottom: "20px" }}>Risk Overview</h3>
 
           <div style={{ flex: 1, display: "flex", alignItems: "center" }}></div>
-          <div style={styles.riskRow}>
-
+          <div style={styles.riskRow} className="dashboard-risk-row">
             {/* Left: Donut Chart */}
             <div style={{ width: 280, height: 280 }}>
               <ResponsiveContainer>
@@ -235,7 +227,6 @@ const Dashboard = () => {
                       border: `1px solid ${item.color}40`,
                     }}
                   >
-
                     <div style={styles.legendLeft}>
                       <span
                         style={{
@@ -250,7 +241,6 @@ const Dashboard = () => {
                 );
               })}
             </div>
-
           </div>
         </div>
 
@@ -291,7 +281,6 @@ const Dashboard = () => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-
         </div>
       </div>
 
@@ -299,58 +288,59 @@ const Dashboard = () => {
       <div style={styles.cardLarge}>
         <h3 style={{ marginBottom: "20px" }}>Detected Assets</h3>
 
-        <table style={styles.table}>
-          <thead>
-            <tr style={styles.tableHeadRow}>
-              <th style={styles.tableCell}>Scan ID</th>
-              <th style={styles.tableCell}>Target</th>
-              <th style={styles.tableCell}>Issues</th>
-              <th style={styles.tableCell}>Risk Level</th>
-              <th style={styles.tableCell}>Date</th>
-              <th style={styles.tableCellRight}></th>
-            </tr>
-          </thead>
-
-
-          <tbody>
-            {filteredData.map((row, index) => (
-              <tr key={index} style={styles.tableRow}>
-                <td style={styles.tableCell}>{row.id}</td>
-                <td style={styles.tableCell}>{row.target}</td>
-
-                <td style={styles.tableCell}>
-                  <span
-                    style={
-                      row.issues === "High"
-                        ? styles.badgeHigh
-                        : styles.badgeLow
-                    }
-                  >
-                    ● {row.issues}
-                  </span>
-                </td>
-
-                <td style={styles.tableCell}>
-                  <span
-                    style={
-                      row.risk === "Medium"
-                        ? styles.badgeMedium
-                        : styles.badgeLow
-                    }
-                  >
-                    ● {row.risk}
-                  </span>
-                </td>
-
-                <td style={styles.tableCell}>{row.date}</td>
-
-                <td style={styles.tableCellRight}>›</td>
+        <div className="table-scroll">
+          <table style={styles.table}>
+            <thead>
+              <tr style={styles.tableHeadRow}>
+                <th style={styles.tableCell}>Scan ID</th>
+                <th style={styles.tableCell}>Target</th>
+                <th style={styles.tableCell}>Issues</th>
+                <th style={styles.tableCell}>Risk Level</th>
+                <th style={styles.tableCell}>Date</th>
+                <th style={styles.tableCellRight}></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
 
+            <tbody>
+              {filteredData.map((row, index) => (
+                <tr key={index} style={styles.tableRow}>
+                  <td style={styles.tableCell}>{row.id}</td>
+
+                  <td style={styles.tableCell}>{row.target}</td>
+
+                  <td style={styles.tableCell}>
+                    <span
+                      style={
+                        row.issues === "High"
+                          ? styles.badgeHigh
+                          : styles.badgeLow
+                      }
+                    >
+                      ● {row.issues}
+                    </span>
+                  </td>
+
+                  <td style={styles.tableCell}>
+                    <span
+                      style={
+                        row.risk === "Medium"
+                          ? styles.badgeMedium
+                          : styles.badgeLow
+                      }
+                    >
+                      ● {row.risk}
+                    </span>
+                  </td>
+
+                  <td style={styles.tableCell}>{row.date}</td>
+
+                  <td style={styles.tableCellRight}>›</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
@@ -384,7 +374,7 @@ const SummaryCard = ({ title, value, icon, iconColor, onClick }) => {
 
 const styles = {
   page: {
-    padding: "40px",
+    padding: "24px",
     backgroundColor: "#EDF4F2",
     minHeight: "100vh",
   },
@@ -686,6 +676,5 @@ const styles = {
     textAlign: "right",
     color: "#94a3b8",
   },
-
 };
 export default Dashboard;

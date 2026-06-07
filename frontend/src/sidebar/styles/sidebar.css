@@ -135,3 +135,71 @@
   text-decoration: none;
   color: inherit;
 }
+
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 1024px) {
+  .sidebar-wrapper {
+    width: 80px;
+  }
+
+  .sidebar-title,
+  .sidebar-section {
+    display: none;
+  }
+
+  .menu-item {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .menu-item svg {
+    margin: 0;
+  }
+
+  .menu-item {
+    font-size: 0;
+  }
+
+  .sidebar-header {
+    justify-content: center;
+  }
+
+  .sidebar-footer .menu-item {
+    font-size: 0;
+  }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+@media (max-width:768px){
+
+.sidebar-wrapper{
+    width:72px;
+}
+
+.sidebar-title,
+.sidebar-section{
+    display:none;
+}
+
+.menu-item{
+    justify-content:center;
+    padding:12px 0;
+}
+
+.menu-item svg{
+    display:block;
+    width:20px;
+    height:20px;
+}
+
+.sidebar-footer{
+    width:100%;
+}
+
+}

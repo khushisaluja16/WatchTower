@@ -40,13 +40,15 @@ function AnimatedStat({ value, label }) {
 }
 export default function Methodology() {
   return (
-    <div style={styles.container}>
+    <div style={styles.container} className="home-container">
       {/* ================= HERO ================= */}
       <Breadcrumb items={[{ title: "Home" }, { title: "" }]} />
 
       <div style={styles.hero}>
         <div>
-          <h1 style={styles.title}>WatchTower</h1>
+          <h1 style={styles.title} className="home-title">
+            WatchTower
+          </h1>
           <div style={styles.status}>
             <span style={styles.statusDot} />
             System Active
@@ -68,10 +70,11 @@ export default function Methodology() {
       <div style={styles.separator} />
 
       {/* ================= INTELLIGENCE MODULES ================= */}
-      <h2 style={styles.sectionTitle} className="fade-in">Security Intelligence Modules</h2>
+      <h2 style={styles.sectionTitle} className="fade-in">
+        Security Intelligence Modules
+      </h2>
 
-      <div style={styles.modulesGrid}>
-
+      <div style={styles.modulesGrid} className="modules-grid">
         {features.map((f, i) => (
           <div
             key={i}
@@ -81,7 +84,6 @@ export default function Methodology() {
             }}
             className="hover-card stagger-item"
           >
-
             <div style={styles.featureIcon}>{f.icon}</div>
             <div>
               <h3 style={styles.featureTitle}>{f.title}</h3>
@@ -92,7 +94,9 @@ export default function Methodology() {
       </div>
       <div style={styles.separator} />
 
-      <h2 style={styles.sectionTitle} className="fade-in">What WatchTower Does</h2>
+      <h2 style={styles.sectionTitle} className="fade-in">
+        What WatchTower Does
+      </h2>
 
       <div style={styles.featureGrid}>
         {whatItDoes.map((item, index) => (
@@ -104,7 +108,6 @@ export default function Methodology() {
             }}
             className="hover-card stagger-item"
           >
-
             <div style={styles.featureIcon} className="icon-animate">
               {item.icon}
             </div>
@@ -118,7 +121,9 @@ export default function Methodology() {
       </div>
       <div style={styles.separator} />
 
-      <h2 style={styles.sectionTitle} className="fade-in">Who WatchTower Is Built For</h2>
+      <h2 style={styles.sectionTitle} className="fade-in">
+        Who WatchTower Is Built For
+      </h2>
 
       <div style={styles.audienceGrid}>
         {audience.map((item, index) => (
@@ -130,7 +135,6 @@ export default function Methodology() {
             }}
             className="hover-card stagger-item"
           >
-
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <div style={styles.featureIcon} className="icon-animate">
                 {item.icon}
@@ -145,12 +149,12 @@ export default function Methodology() {
       </div>
       <div style={styles.separator} />
 
-
       {/* ================= WORKFLOW ================= */}
-      <h2 style={styles.sectionTitle} className="fade-in">How WatchTower Operates</h2>
+      <h2 style={styles.sectionTitle} className="fade-in">
+        How WatchTower Operates
+      </h2>
 
-      <div style={styles.modulesGrid}>
-
+      <div style={styles.modulesGrid} className="modules-grid">
         {workflow.map((w, i) => (
           <div
             key={i}
@@ -160,7 +164,6 @@ export default function Methodology() {
             }}
             className="hover-card stagger-item"
           >
-
             <span style={styles.workflowIndex}>0{i + 1}</span>
             <h3 style={styles.workflowTitle}>{w.title}</h3>
             <p style={styles.workflowText}>{w.text}</p>
@@ -267,7 +270,8 @@ const workflow = [
 
 const styles = {
   container: {
-    maxWidth: "1200px",
+    width: "100%",
+    maxWidth: "1600px",
     background: "#EDF4F2",
     padding: "36px",
     borderRadius: "24px",
@@ -497,7 +501,6 @@ const styles = {
     gap: "6px",
   },
 
-
   audienceTitle: {
     fontSize: "16px",
     fontWeight: "600",
@@ -522,5 +525,4 @@ const styles = {
       "linear-gradient(to right, transparent, rgba(0,0,0,0.12), transparent)",
     margin: "56px 0",
   },
-
 };

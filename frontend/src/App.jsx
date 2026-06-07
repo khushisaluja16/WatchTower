@@ -12,15 +12,15 @@ import "antd/dist/reset.css";
 
 function App() {
   return (
-    <div style={styles.app}>
+    <div style={styles.app} className="app-layout">
       <Sidebar />
 
-      <main style={styles.main}>
+      <main style={styles.main} className="main-content">
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path ="/home" element ={<Home/>} />
-          <Route path = "/scans" element={<Scans />}/>
+          <Route path="/home" element={<Home />} />
+          <Route path="/scans" element={<Scans />} />
           <Route path="/scan-result" element={<ScanResult />} />
           <Route path="/reports" element={<Reports />} />
         </Routes>
@@ -31,18 +31,18 @@ function App() {
 
 const styles = {
   app: {
-    display: "flex", 
+    display: "flex",
     minHeight: "100vh",
     background: "#edf4f2",
   },
 
   main: {
-    flex: 1, 
+    flex: 1,
     minHeight: "100vh",
-    padding: "32px 24px",
+    padding: "24px",
+    width: "100%",
+    overflowX: "hidden",
     boxSizing: "border-box",
-    overflowY: "auto",
-    
   },
 };
 
