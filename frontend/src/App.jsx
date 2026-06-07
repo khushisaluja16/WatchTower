@@ -37,10 +37,10 @@ const styles = {
   main: {
     flex: 1, 
     minHeight: "100vh",
-    padding: "32px 24px",
+    padding: "20px 12px",
     boxSizing: "border-box",
     overflowY: "auto",
-    
+    overflowX: "hidden"    
   },
 };
 

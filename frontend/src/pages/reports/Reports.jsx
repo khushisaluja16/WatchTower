@@ -134,7 +134,13 @@ const Reports = () => {
   );
 
   return (
-    <div style={{ padding: 24, maxWidth: 1200, margin: "0 auto" }}>
+    <div
+      style={{
+        padding: "24px",
+        width: "100%",
+        boxSizing: "border-box",
+      }}
+    >
       <Breadcrumb
         items={[
           { title: "Home" },
@@ -144,7 +150,12 @@ const Reports = () => {
       />
 
       {/* Header */}
-      <Row justify="space-between" align="middle" style={{ marginTop: 12 }}>
+      <Row
+        justify="space-between"
+        align="middle"
+        gutter={[16, 16]}
+        style={{ marginTop: 12 }}
+      >
         <div>
           <Title level={2} style={{ marginBottom: 0 }}>
             Scan Report
@@ -154,14 +165,18 @@ const Reports = () => {
           </Text>
         </div>
 
-        <Button type="primary" icon={<DownloadOutlined />}>
+        <Button
+          type="primary"
+          icon={<DownloadOutlined />}
+          size="large"
+        >
           Download PDF
         </Button>
       </Row>
 
       {/* Summary Cards */}
       <Row gutter={16} style={{ marginTop: 20 }}>
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Card>
             <Statistic
               title="Critical Issues"
@@ -172,7 +187,7 @@ const Reports = () => {
           </Card>
         </Col>
 
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Card>
             <Statistic
               title="Medium Issues"
@@ -183,7 +198,7 @@ const Reports = () => {
           </Card>
         </Col>
 
-        <Col span={8}>
+        <Col xs={24} sm={24} md={8}>
           <Card>
             <Statistic
               title="Low Issues"
@@ -197,11 +212,15 @@ const Reports = () => {
 
       {/* Security Posture */}
       <Card title="Security Posture" style={{ marginTop: 20 }}>
-        <Row align="middle" gutter={24}>
-          <Col span={8}>
+        <Row
+          align="middle"
+          gutter={[24, 24]}
+        >
+          <Col xs={24} md={8}>
             <Progress
               type="circle"
               percent={riskScore}
+              size={140}
               strokeColor={
                 riskScore > 70
                   ? "#ff4d4f"
@@ -211,7 +230,7 @@ const Reports = () => {
               }
             />
           </Col>
-          <Col span={16}>
+          <Col xs={24} md={16}>
             <Title level={4}>{riskLevel}</Title>
             <Text type="secondary">
               This score represents the estimated exposure level based on
@@ -233,7 +252,11 @@ const Reports = () => {
                 <span>{count} issues</span>
               </Row>
 
-              <Progress percent={percent} showInfo={false} />
+              <Progress
+                percent={percent}
+                showInfo={false}
+                strokeColor="#1677ff"
+              />
             </div>
           );
         })}
@@ -244,8 +267,9 @@ const Reports = () => {
         <Table
           columns={columns}
           dataSource={data}
-          expandable={{expandedRowRender}}
+          expandable={{ expandedRowRender }}
           pagination={{ pageSize: 5 }}
+          scroll={{ x: 900 }}
         />
       </Card>
     </div>

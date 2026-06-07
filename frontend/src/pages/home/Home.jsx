@@ -1,3 +1,5 @@
+import "./home.css";
+
 import {
   ShieldCheck,
   Bug,
@@ -59,7 +61,7 @@ export default function Methodology() {
       </div>
 
       {/* ================= STATS ================= */}
-      <div style={styles.statsGrid} className="fade-in">
+      <div className="stats-grid fade-in">
         {stats.map((s, i) => (
           <AnimatedStat key={i} value={s.value} label={s.label} />
         ))}
@@ -69,7 +71,7 @@ export default function Methodology() {
       {/* ================= INTELLIGENCE MODULES ================= */}
       <h2 style={styles.sectionTitle} className="fade-in">Security Intelligence Modules</h2>
 
-      <div style={styles.modulesGrid}>
+      <div className="modules-grid">
 
         {features.map((f, i) => (
           <div
@@ -93,7 +95,7 @@ export default function Methodology() {
 
       <h2 style={styles.sectionTitle} className="fade-in">What WatchTower Does</h2>
 
-      <div style={styles.featureGrid}>
+      <div className="feature-grid">
         {whatItDoes.map((item, index) => (
           <div
             key={index}
@@ -119,7 +121,7 @@ export default function Methodology() {
 
       <h2 style={styles.sectionTitle} className="fade-in">Who WatchTower Is Built For</h2>
 
-      <div style={styles.audienceGrid}>
+      <div className="audience-grid">
         {audience.map((item, index) => (
           <div
             key={index}
@@ -148,7 +150,7 @@ export default function Methodology() {
       {/* ================= WORKFLOW ================= */}
       <h2 style={styles.sectionTitle} className="fade-in">How WatchTower Operates</h2>
 
-      <div style={styles.modulesGrid}>
+      <div className="modules-grid">
 
         {workflow.map((w, i) => (
           <div
@@ -265,13 +267,14 @@ const workflow = [
 /* ================= STYLES ================= */
 
 const styles = {
-  container: {
-    maxWidth: "1200px",
-    background: "#EDF4F2",
-    padding: "36px",
-    borderRadius: "24px",
-    color: "#0f172a",
-  },
+container: {
+  width: "100%",
+  maxWidth: "1200px",
+  background: "#EDF4F2",
+  padding: "20px",
+  boxSizing: "border-box",
+  color: "#0f172a",
+},
 
   hero: {
     marginBottom: "36px",
@@ -279,7 +282,7 @@ const styles = {
 
   title: {
     marginTop: "5px",
-    fontSize: "44px",
+    fontSize: "clamp(32px, 6vw, 44px)",
     fontWeight: "800",
     marginBottom: "6px",
   },
@@ -303,7 +306,7 @@ const styles = {
   },
 
   subtitle: {
-    maxWidth: "720px",
+    maxWidth: "100%",
     fontSize: "16px",
     color: "#334155",
     lineHeight: "1.7",

@@ -4,7 +4,8 @@
   top: 0;
   height: 100vh;
   width: 200px;
-  flex-shrink: 0; /* VERY IMPORTANT */
+  flex-shrink: 0;
+  /* VERY IMPORTANT */
 }
 
 /* Sidebar container */
@@ -69,7 +70,7 @@
 .sidebar-menu {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0;
 }
 
 /* Menu item */
@@ -78,7 +79,8 @@
   align-items: center;
   gap: 14px;
 
-  width: 100%; /* 🔴 key */
+  width: 100%;
+  /* 🔴 key */
   padding: 10px 16px;
   border-radius: 12px;
 
@@ -86,7 +88,8 @@
   letter-spacing: 0.15px;
   color: #9ca3af;
   transition: all 0.25s ease;
-  box-sizing: border-box; /* prevents overflow glow */
+  box-sizing: border-box;
+  /* prevents overflow glow */
 }
 
 /* Hover */
@@ -97,11 +100,9 @@
 
 /* Active */
 .menu-item.active {
-  background: linear-gradient(
-    90deg,
-    rgba(56, 189, 248, 0.2),
-    rgba(56, 189, 248, 0.05)
-  );
+  background: linear-gradient(90deg,
+      rgba(56, 189, 248, 0.2),
+      rgba(56, 189, 248, 0.05));
 
   color: #7dd3fc;
 
@@ -113,20 +114,25 @@
 /* Footer */
 .sidebar-footer {
   margin-top: auto;
-  width: fit-content;
   display: flex;
   flex-direction: column;
   gap: 6px;
   padding-top: 10px;
 }
+
 .menu-link {
   text-decoration: none;
   color: inherit;
   display: block;
 }
 
-.menu-item svg {
-  min-width: 20px;
+.menu-item svg,
+.menu-item .anticon {
+  min-width: 22px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu-link:visited,
@@ -134,4 +140,46 @@
 .menu-link:active {
   text-decoration: none;
   color: inherit;
+}
+
+/* ================= TABLET ================= */
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    width: 70px;
+  }
+
+  .sidebar {
+    padding: 10px 4px;
+    overflow-y: auto;
+  }
+
+  .sidebar-title,
+  .sidebar-section {
+    display: none;
+  }
+
+  .sidebar-header {
+    justify-content: center;
+  }
+
+  .menu-item {
+    justify-content: center;
+    padding: 10px;
+    font-size: 0;
+  }
+
+  .menu-item svg {
+    min-width: 22px;
+  }
+
+  .sidebar-footer {
+    margin-top: 8px;
+  }
+
+  .sidebar-footer .menu-item {
+    font-size: 0;
+  }
 }

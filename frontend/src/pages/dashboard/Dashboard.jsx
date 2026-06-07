@@ -20,6 +20,8 @@ import {
   CartesianGrid,
 } from "recharts";
 
+const isMobile = window.innerWidth <= 768;
+
 const weeklyData = [
   { label: "Mon", value: 320, color: "#ef4444" },
   { label: "Tue", value: 140, color: "#f97316" },
@@ -72,28 +74,28 @@ const Dashboard = () => {
   const [selectedFilter, setSelectedFilter] = useState(null);
 
   const data = [
-  {
-    id: "dfd9fc7",
-    target: "example.com",
-    issues: "High",
-    risk: "Medium",
-    date: "April 2023",
-  },
-  {
-    id: "b7c450a4",
-    target: "example.org",
-    issues: "High",
-    risk: "Low",
-    date: "April 2023",
-  },
-  {
-    id: "c653fdbb",
-    target: "testsite.com",
-    issues: "High",
-    risk: "Low",
-    date: "April 2023",
-  },
-];
+    {
+      id: "dfd9fc7",
+      target: "example.com",
+      issues: "High",
+      risk: "Medium",
+      date: "April 2023",
+    },
+    {
+      id: "b7c450a4",
+      target: "example.org",
+      issues: "High",
+      risk: "Low",
+      date: "April 2023",
+    },
+    {
+      id: "c653fdbb",
+      target: "testsite.com",
+      issues: "High",
+      risk: "Low",
+      date: "April 2023",
+    },
+  ];
   const filteredData = selectedFilter
     ? data.filter(item => item.issues === selectedFilter)
     : data;
@@ -105,7 +107,7 @@ const Dashboard = () => {
       : range === "30"
         ? monthlyData
         : quarterlyData;
-        
+
   return (
     <div style={styles.page}>
 
@@ -113,11 +115,11 @@ const Dashboard = () => {
       <p style={styles.breadcrumb}>Home / Dashboard</p>
 
       {/* Header Row */}
-      <div style={styles.headerRow}>
+      <div className="header-row">
 
         <h1 style={styles.title}>Dashboard</h1>
 
-        <div style={styles.headerActions}>
+        <div className="header-actions">
           <div style={styles.dropdownWrapper}>
 
             <button
@@ -158,7 +160,7 @@ const Dashboard = () => {
       </div>
 
       {/* Summary Cards */}
-      <div style={styles.cardsRow} >
+      <div className="cards-row">
         <SummaryCard
           title="Scans"
           value="32"
@@ -193,22 +195,45 @@ const Dashboard = () => {
       </div>
 
       {/* Two Column Section */}
-      <div style={styles.twoColumn}>
+      <div
+        className="two-column"
+        style={{
+          marginBottom: "40px",
+        }}
+      >
         <div style={styles.cardLarge}>
           <h3 style={{ marginBottom: "20px" }}>Risk Overview</h3>
 
           <div style={{ flex: 1, display: "flex", alignItems: "center" }}></div>
-          <div style={styles.riskRow}>
+          <div
+            className="risk-row"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: isMobile ? "20px" : "40px",
+              width: "100%",
+            }}
+          >
 
             {/* Left: Donut Chart */}
-            <div style={{ width: 280, height: 280 }}>
+            <div
+              style={{
+                width: "100%",
+                maxWidth: window.innerWidth <= 768 ? "180px" : "280px",
+                height: window.innerWidth <= 768 ? "180px" : "220px",
+                margin: "0 auto",
+                flexShrink: 0,
+              }}
+            >
+
               <ResponsiveContainer>
                 <PieChart>
                   <Pie
                     data={riskData}
                     dataKey="value"
-                    innerRadius={80}
-                    outerRadius={120}
+                    innerRadius={window.innerWidth <= 768 ? 45 : 65}
+                    outerRadius={window.innerWidth <= 768 ? 75 : 100}
                     cx="50%"
                     cy="50%"
                     paddingAngle={4}
@@ -269,7 +294,7 @@ const Dashboard = () => {
             </select>
           </div>
 
-          <div style={{ width: "100%", height: 250 }}>
+          <div style={{ width: "100%", height: 220 }}>
             <ResponsiveContainer>
               <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="2 4" stroke="#e5e7eb" />
@@ -300,56 +325,58 @@ const Dashboard = () => {
       <div style={styles.cardLarge}>
         <h3 style={{ marginBottom: "20px" }}>Detected Assets</h3>
 
-        <table style={styles.table}>
-          <thead>
-            <tr style={styles.tableHeadRow}>
-              <th style={styles.tableCell}>Scan ID</th>
-              <th style={styles.tableCell}>Target</th>
-              <th style={styles.tableCell}>Issues</th>
-              <th style={styles.tableCell}>Risk Level</th>
-              <th style={styles.tableCell}>Date</th>
-              <th style={styles.tableCellRight}></th>
-            </tr>
-          </thead>
-
-
-          <tbody>
-            {filteredData.map((row, index) => (
-              <tr key={index} style={styles.tableRow}>
-                <td style={styles.tableCell}>{row.id}</td>
-                <td style={styles.tableCell}>{row.target}</td>
-
-                <td style={styles.tableCell}>
-                  <span
-                    style={
-                      row.issues === "High"
-                        ? styles.badgeHigh
-                        : styles.badgeLow
-                    }
-                  >
-                    ● {row.issues}
-                  </span>
-                </td>
-
-                <td style={styles.tableCell}>
-                  <span
-                    style={
-                      row.risk === "Medium"
-                        ? styles.badgeMedium
-                        : styles.badgeLow
-                    }
-                  >
-                    ● {row.risk}
-                  </span>
-                </td>
-
-                <td style={styles.tableCell}>{row.date}</td>
-
-                <td style={styles.tableCellRight}>›</td>
+        <div style={{ overflowX: "auto" }}>
+          <table style={styles.table}>
+            <thead>
+              <tr style={styles.tableHeadRow}>
+                <th style={styles.tableCell}>Scan ID</th>
+                <th style={styles.tableCell}>Target</th>
+                <th style={styles.tableCell}>Issues</th>
+                <th style={styles.tableCell}>Risk Level</th>
+                <th style={styles.tableCell}>Date</th>
+                <th style={styles.tableCellRight}></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+
+            <tbody>
+              {filteredData.map((row, index) => (
+                <tr key={index} style={styles.tableRow}>
+                  <td style={styles.tableCell}>{row.id}</td>
+                  <td style={styles.tableCell}>{row.target}</td>
+
+                  <td style={styles.tableCell}>
+                    <span
+                      style={
+                        row.issues === "High"
+                          ? styles.badgeHigh
+                          : styles.badgeLow
+                      }
+                    >
+                      ● {row.issues}
+                    </span>
+                  </td>
+
+                  <td style={styles.tableCell}>
+                    <span
+                      style={
+                        row.risk === "Medium"
+                          ? styles.badgeMedium
+                          : styles.badgeLow
+                      }
+                    >
+                      ● {row.risk}
+                    </span>
+                  </td>
+
+                  <td style={styles.tableCell}>{row.date}</td>
+
+                  <td style={styles.tableCellRight}>›</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </div>
@@ -359,7 +386,7 @@ const Dashboard = () => {
 
 const SummaryCard = ({ title, value, icon, iconColor, onClick }) => {
   return (
-     <div className="summary-card" style={styles.card} onClick={onClick}>
+    <div className="summary-card" style={styles.card} onClick={onClick}>
 
       {/* Top Row: Icon + Title */}
       <div style={styles.cardHeader}>
@@ -385,9 +412,13 @@ const SummaryCard = ({ title, value, icon, iconColor, onClick }) => {
 
 const styles = {
   page: {
-    padding: "40px",
+    padding: window.innerWidth <= 768 ? "16px" : "40px",
     backgroundColor: "#EDF4F2",
     minHeight: "100vh",
+    maxWidth: "1400px",
+    margin: "0 auto",
+    width: "100%",
+    boxSizing: "border-box",
   },
 
   breadcrumb: {
@@ -448,7 +479,7 @@ const styles = {
 
   twoColumn: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
     gap: "20px",
     marginBottom: "40px",
   },
@@ -476,9 +507,11 @@ const styles = {
 
   table: {
     width: "100%",
-    borderCollapse: "collapse",
-    marginTop: "20px",
+    borderCollapse: "separate",
+    marginTop: "0px",
+    borderSpacing: "0 14px",
   },
+
   high: {
     backgroundColor: "#fee2e2",
     color: "#b91c1c",
@@ -505,8 +538,9 @@ const styles = {
   legendContainer: {
     display: "flex",
     flexDirection: "column",
-    gap: "18px",
-    width: "240px",
+    gap: "12px",
+    width: isMobile ? "100%" : "240px",
+    flexShrink: 1,
   },
 
   legendItem: {
@@ -661,12 +695,6 @@ const styles = {
     padding: "6px 12px",
     borderRadius: "20px",
     fontSize: "12px",
-  },
-
-  table: {
-    width: "100%",
-    borderCollapse: "separate",
-    borderSpacing: "0 14px",
   },
 
   tableHeadRow: {

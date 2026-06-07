@@ -1,0 +1,14 @@
+$kind: http-request
+name: http://localhost:8000/scan/ssl
+url: http://localhost:8000/scan/ssl
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"target\": \"google.com\",\r
+
+    \  \"port\": 443\r
+
+    }"
+order: 1780820026196
