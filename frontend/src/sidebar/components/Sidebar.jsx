@@ -2,13 +2,13 @@ import { Link, useLocation } from "react-router-dom";
 
 import "../styles/sidebar.css";
 import Logo from "../logo/logowatchtower.png";
-import { House, Code, Gear, Question } from "phosphor-react";
 import {
   DashboardOutlined,
   FileTextOutlined,
   ScanOutlined,
   SecurityScanOutlined,
 } from "@ant-design/icons";
+import { House, Code, Settings, CircleHelp } from "lucide-react";
 
 function Sidebar() {
   let location;
@@ -83,12 +83,12 @@ function Sidebar() {
 
         <div className="sidebar-footer">
           <div className="menu-item">
-            <Gear size={20} weight="regular" />
+            <Settings size={20} weight="regular" />
             Settings
           </div>
 
           <div className="menu-item">
-            <Question size={20} weight="regular" />
+            <CircleHelp size={20} weight="regular" />
             Help / About
           </div>
         </div>

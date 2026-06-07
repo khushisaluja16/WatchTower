@@ -1,12 +1,14 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import "antd/dist/reset.css";
+
+const Home = lazy(() => import("./pages/home/Home"));
+const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const ScanResult = lazy(() => import("./pages/scan/ScanResult"));
+const Reports = lazy(() => import("./pages/reports/Reports"));
+const Scans = lazy(() => import("./pages/scan/Scans"));
 
 import Sidebar from "./sidebar/components/Sidebar";
-import Home from "./pages/home/Home"
-import Dashboard from "./pages/dashboard/Dashboard";
-import ScanResult from "./pages/scan/ScanResult";
-import Reports from "./pages/reports/Reports";
-import Scans from "./pages/scan/Scans";
+import "antd/dist/reset.css";
 
 function App() {
   return (

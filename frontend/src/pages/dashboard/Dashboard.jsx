@@ -1,12 +1,11 @@
 import "./dashboard.css";
 import { useState } from "react";
 import {
-  ChartBar,
-  WarningCircle,
+  BarChart3,
+  TriangleAlert,
   ShieldCheck,
   Bug
-} from "phosphor-react";
-
+} from "lucide-react";  
 import {
   PieChart,
   Pie,
@@ -162,7 +161,7 @@ const Dashboard = () => {
         <SummaryCard
           title="Scans"
           value="32"
-          icon={<ChartBar size={20} weight="bold" color="#2563eb" />}
+          icon={<BarChart3 size={20} weight="bold" color="#2563eb" />}
           iconColor="#2563eb"
           onClick={() => setSelectedFilter("High")}
         />
@@ -170,7 +169,7 @@ const Dashboard = () => {
         <SummaryCard
           title="Critical Issues"
           value="8"
-          icon={<WarningCircle size={20} weight="bold" color="#ef4444" />}
+          icon={<TriangleAlert size={20} weight="bold" color="#ef4444" />}
           iconColor="#ef4444"
           onClick={() => setSelectedFilter("High")}
         />
@@ -474,11 +473,6 @@ const styles = {
     color: "#94a3b8",
   },
 
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-    marginTop: "20px",
-  },
   high: {
     backgroundColor: "#fee2e2",
     color: "#b91c1c",

@@ -1,13 +1,14 @@
 import {
   ShieldCheck,
   Bug,
-  MagnifyingGlass,
+  Search,
   Globe,
-  Lightning,
-} from "phosphor-react";
+  Zap,
+  Wrench,
+  Users,
+  Building2,
+} from "lucide-react";
 import { Breadcrumb } from "antd";
-import { Users, Wrench, Buildings } from "phosphor-react";
-
 import { useEffect, useState } from "react";
 function AnimatedStat({ value, label }) {
   const [count, setCount] = useState(0);
@@ -188,7 +189,7 @@ const features = [
   {
     title: "Automated Threat Detection",
     text: "Identifies common and emerging vulnerabilities using automated security scanning techniques.",
-    icon: <MagnifyingGlass size={24} />,
+    icon: <Search size={24}  />,
   },
   {
     title: "Threat Intelligence Engine",
@@ -212,7 +213,7 @@ const whatItDoes = [
     title: "Automated Vulnerability Identification",
     text:
       "Automatically scans for security weaknesses such as misconfigurations, outdated services, and injection flaws.",
-    icon: <MagnifyingGlass size={24} />,
+    icon: <Search size={24} />,
   },
   {
     title: "Risk-Focused Security Insights",
@@ -238,7 +239,7 @@ const audience = [
     title: "Organizations",
     text:
       "Improve security posture and reduce risk across applications and infrastructure.",
-    icon: <Buildings size={22} />,
+    icon: <Building2 size={22} />,
   },
 ];
 
