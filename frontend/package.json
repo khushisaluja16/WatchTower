@@ -13,7 +13,6 @@
     "antd": "^6.2.2",
     "bootstrap": "^5.3.8",
     "lucide-react": "^0.562.0",
-    "phosphor-react": "^1.4.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0",
@@ -28,6 +27,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "rollup-plugin-visualizer": "^7.0.1",
     "vite": "^7.2.4"
   }
 }

@@ -142,9 +142,19 @@
   color: inherit;
 }
 
-/* ================= TABLET ================= */
+/* =====================================
+   TABLET
+===================================== */
 
-/* ================= MOBILE ================= */
+@media (max-width: 1024px) {
+  .sidebar-wrapper {
+    width: 80px;
+  }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
 
 @media (max-width: 768px) {
   .sidebar-wrapper {
@@ -161,25 +171,57 @@
     display: none;
   }
 
-  .sidebar-header {
-    justify-content: center;
-  }
+.sidebar-header {
+  justify-content: center;
+}
 
-  .menu-item {
-    justify-content: center;
-    padding: 10px;
-    font-size: 0;
-  }
+.menu-item {
+  justify-content: center;
+  padding: 10px;
+  font-size: 0;
+}
 
-  .menu-item svg {
-    min-width: 22px;
-  }
+.menu-item svg {
+  min-width: 22px;
+  margin: 0;
+}
 
-  .sidebar-footer {
-    margin-top: 8px;
-  }
+.sidebar-footer {
+  margin-top: 8px;
+}
 
   .sidebar-footer .menu-item {
     font-size: 0;
   }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+@media (max-width:768px){
+
+.sidebar-wrapper{
+    width:72px;
+}
+
+.sidebar-title,
+.sidebar-section{
+    display:none;
+}
+
+.menu-item{
+    justify-content:center;
+    padding:12px 0;
+}
+
+.menu-item svg{
+    display:block;
+    width:20px;
+    height:20px;
+}
+
+.sidebar-footer{
+    width:100%;
+}
+
 }
