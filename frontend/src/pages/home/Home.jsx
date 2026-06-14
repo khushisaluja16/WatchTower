@@ -1,14 +1,15 @@
+import "./home.css";
+
 import {
   ShieldCheck,
   Bug,
-  Search,
+  MagnifyingGlass,
   Globe,
-  Zap,
-  Wrench,
-  Users,
-  Building2,
-} from "lucide-react";
+  Lightning,
+} from "phosphor-react";
 import { Breadcrumb } from "antd";
+import { Users, Wrench, Buildings } from "phosphor-react";
+
 import { useEffect, useState } from "react";
 function AnimatedStat({ value, label }) {
   const [count, setCount] = useState(0);
@@ -40,15 +41,13 @@ function AnimatedStat({ value, label }) {
 }
 export default function Methodology() {
   return (
-    <div style={styles.container} className="home-container">
+    <div style={styles.container}>
       {/* ================= HERO ================= */}
       <Breadcrumb items={[{ title: "Home" }, { title: "" }]} />
 
       <div style={styles.hero}>
         <div>
-          <h1 style={styles.title} className="home-title">
-            WatchTower
-          </h1>
+          <h1 style={styles.title}>WatchTower</h1>
           <div style={styles.status}>
             <span style={styles.statusDot} />
             System Active
@@ -62,7 +61,7 @@ export default function Methodology() {
       </div>
 
       {/* ================= STATS ================= */}
-      <div style={styles.statsGrid} className="fade-in">
+      <div className="stats-grid fade-in">
         {stats.map((s, i) => (
           <AnimatedStat key={i} value={s.value} label={s.label} />
         ))}
@@ -70,11 +69,10 @@ export default function Methodology() {
       <div style={styles.separator} />
 
       {/* ================= INTELLIGENCE MODULES ================= */}
-      <h2 style={styles.sectionTitle} className="fade-in">
-        Security Intelligence Modules
-      </h2>
+      <h2 style={styles.sectionTitle} className="fade-in">Security Intelligence Modules</h2>
 
-      <div style={styles.modulesGrid} className="modules-grid">
+      <div className="modules-grid">
+
         {features.map((f, i) => (
           <div
             key={i}
@@ -84,6 +82,7 @@ export default function Methodology() {
             }}
             className="hover-card stagger-item"
           >
+
             <div style={styles.featureIcon}>{f.icon}</div>
             <div>
               <h3 style={styles.featureTitle}>{f.title}</h3>
@@ -94,11 +93,9 @@ export default function Methodology() {
       </div>
       <div style={styles.separator} />
 
-      <h2 style={styles.sectionTitle} className="fade-in">
-        What WatchTower Does
-      </h2>
+      <h2 style={styles.sectionTitle} className="fade-in">What WatchTower Does</h2>
 
-      <div style={styles.featureGrid}>
+      <div className="feature-grid">
         {whatItDoes.map((item, index) => (
           <div
             key={index}
@@ -108,6 +105,7 @@ export default function Methodology() {
             }}
             className="hover-card stagger-item"
           >
+
             <div style={styles.featureIcon} className="icon-animate">
               {item.icon}
             </div>
@@ -121,11 +119,9 @@ export default function Methodology() {
       </div>
       <div style={styles.separator} />
 
-      <h2 style={styles.sectionTitle} className="fade-in">
-        Who WatchTower Is Built For
-      </h2>
+      <h2 style={styles.sectionTitle} className="fade-in">Who WatchTower Is Built For</h2>
 
-      <div style={styles.audienceGrid}>
+      <div className="audience-grid">
         {audience.map((item, index) => (
           <div
             key={index}
@@ -135,6 +131,7 @@ export default function Methodology() {
             }}
             className="hover-card stagger-item"
           >
+
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <div style={styles.featureIcon} className="icon-animate">
                 {item.icon}
@@ -149,12 +146,12 @@ export default function Methodology() {
       </div>
       <div style={styles.separator} />
 
-      {/* ================= WORKFLOW ================= */}
-      <h2 style={styles.sectionTitle} className="fade-in">
-        How WatchTower Operates
-      </h2>
 
-      <div style={styles.modulesGrid} className="modules-grid">
+      {/* ================= WORKFLOW ================= */}
+      <h2 style={styles.sectionTitle} className="fade-in">How WatchTower Operates</h2>
+
+      <div className="modules-grid">
+
         {workflow.map((w, i) => (
           <div
             key={i}
@@ -164,6 +161,7 @@ export default function Methodology() {
             }}
             className="hover-card stagger-item"
           >
+
             <span style={styles.workflowIndex}>0{i + 1}</span>
             <h3 style={styles.workflowTitle}>{w.title}</h3>
             <p style={styles.workflowText}>{w.text}</p>
@@ -192,7 +190,7 @@ const features = [
   {
     title: "Automated Threat Detection",
     text: "Identifies common and emerging vulnerabilities using automated security scanning techniques.",
-    icon: <Search size={24}  />,
+    icon: <MagnifyingGlass size={24} />,
   },
   {
     title: "Threat Intelligence Engine",
@@ -216,7 +214,7 @@ const whatItDoes = [
     title: "Automated Vulnerability Identification",
     text:
       "Automatically scans for security weaknesses such as misconfigurations, outdated services, and injection flaws.",
-    icon: <Search size={24} />,
+    icon: <MagnifyingGlass size={24} />,
   },
   {
     title: "Risk-Focused Security Insights",
@@ -242,7 +240,7 @@ const audience = [
     title: "Organizations",
     text:
       "Improve security posture and reduce risk across applications and infrastructure.",
-    icon: <Building2 size={22} />,
+    icon: <Buildings size={22} />,
   },
 ];
 
@@ -269,14 +267,14 @@ const workflow = [
 /* ================= STYLES ================= */
 
 const styles = {
-  container: {
-    width: "100%",
-    maxWidth: "1600px",
-    background: "#EDF4F2",
-    padding: "36px",
-    borderRadius: "24px",
-    color: "#0f172a",
-  },
+container: {
+  width: "100%",
+  maxWidth: "1200px",
+  background: "#EDF4F2",
+  padding: "20px",
+  boxSizing: "border-box",
+  color: "#0f172a",
+},
 
   hero: {
     marginBottom: "36px",
@@ -284,7 +282,7 @@ const styles = {
 
   title: {
     marginTop: "5px",
-    fontSize: "44px",
+    fontSize: "clamp(32px, 6vw, 44px)",
     fontWeight: "800",
     marginBottom: "6px",
   },
@@ -308,7 +306,7 @@ const styles = {
   },
 
   subtitle: {
-    maxWidth: "720px",
+    maxWidth: "100%",
     fontSize: "16px",
     color: "#334155",
     lineHeight: "1.7",
@@ -501,6 +499,7 @@ const styles = {
     gap: "6px",
   },
 
+
   audienceTitle: {
     fontSize: "16px",
     fontWeight: "600",
@@ -525,4 +524,5 @@ const styles = {
       "linear-gradient(to right, transparent, rgba(0,0,0,0.12), transparent)",
     margin: "56px 0",
   },
+
 };

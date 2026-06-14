@@ -55,11 +55,13 @@ const SummaryCard = ({ icon, title, value, percent, color, subtitle }) => {
 
 const ScanResult = () => {
   return (
-    <div
-      style={{
-        padding: 24,
-      }}
-    >
+   <div
+  style={{
+    padding: "24px",
+    width: "100%",
+    boxSizing: "border-box",
+  }}
+>
       <Row
         justify="space-between"
         align="middle"
@@ -70,12 +72,11 @@ const ScanResult = () => {
         <Breadcrumb items={[{ title: "Home" }, { title: "Scan Results" }]} />
         
       </Row>{/* account card */}
-      <Row
-        gutter={24}
-        style={{ marginTop: "32px", marginBottom: 24 }}
-        justify="space-between"
-        align="middle"
-      >
+<Row
+  gutter={[16, 16]}
+  justify="space-between"
+  align="middle"
+>
         <div>
           <Title level={2} style={{ marginBottom: 4 }}>
             Scan Results
@@ -92,7 +93,7 @@ const ScanResult = () => {
       {/* scan result summary card */}
 
       <Row gutter={16} style={{ marginBottom: 24 }}>
-        <Col span={6}>
+        <Col xs={24} sm={12} lg={6}>
           <SummaryCard
             icon={<ExclamationCircleFilled style={{ color: "#ff4d4f" }} />}
             title="Critical Issues"
@@ -103,7 +104,7 @@ const ScanResult = () => {
           />
         </Col>
 
-        <Col span={6}>
+        <Col xs={24} sm={12} lg={6}>
           <SummaryCard
             icon={<WarningFilled style={{ color: "#faad14" }} />}
             title="Medium Issues"
@@ -114,7 +115,7 @@ const ScanResult = () => {
           />
         </Col>
 
-        <Col span={6}>
+        <Col xs={24} sm={12} lg={6}>
           <SummaryCard
             icon={<CheckCircleFilled style={{ color: "#52c41a" }} />}
             title="Low Issues"
@@ -125,7 +126,7 @@ const ScanResult = () => {
           />
         </Col>
 
-        <Col span={6}>
+        <Col xs={24} sm={12} lg={6}>
           <SummaryCard
             icon={<AppstoreFilled style={{ color: "#1890ff" }} />}
             title="Open Ports"
@@ -152,7 +153,7 @@ const ScanResult = () => {
       </Row>
       {/* tables  */}
       <Row gutter={16}>
-        <Col span={12}>
+        <Col xs={24} lg={12}>
           <Card title="Detected Ports">
             <Table
               columns={portsColumns}
@@ -162,7 +163,7 @@ const ScanResult = () => {
           </Card>
         </Col>
 
-        <Col span={12}>
+        <Col xs={24} lg={12}>
           <Card title="Detected Ports">
             <Table
               columns={portsColumns}

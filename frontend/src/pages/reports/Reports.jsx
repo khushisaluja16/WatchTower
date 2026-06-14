@@ -137,9 +137,7 @@ const Reports = () => {
     <div
       style={{
         padding: "24px",
-        maxWidth: "1200px",
         width: "100%",
-        margin: "0 auto",
         boxSizing: "border-box",
       }}
     >
@@ -158,36 +156,27 @@ const Reports = () => {
         gutter={[16, 16]}
         style={{ marginTop: 12 }}
       >
-        <Col xs={24} md={16}>
-          <div>
-            <Title level={2} style={{ marginBottom: 0 }}>
-              Scan Report
-            </Title>
+        <div>
+          <Title level={2} style={{ marginBottom: 0 }}>
+            Scan Report
+          </Title>
+          <Text type="secondary">
+            Vulnerability Scan Report for <b>example.com</b>
+          </Text>
+        </div>
 
-            <Text type="secondary">
-              Vulnerability Scan Report for <b>example.com</b>
-            </Text>
-          </div>
-        </Col>
-
-        <Col xs={24} md={8}>
-          <Button
-            type="primary"
-            icon={<DownloadOutlined />}
-            style={{
-              width: "100%",
-              maxWidth: "220px",
-              float: "right",
-            }}
-          >
-            Download PDF
-          </Button>
-        </Col>
+        <Button
+          type="primary"
+          icon={<DownloadOutlined />}
+          size="large"
+        >
+          Download PDF
+        </Button>
       </Row>
 
       {/* Summary Cards */}
       <Row gutter={16} style={{ marginTop: 20 }}>
-        <Col xs={24} md={8}>
+        <Col xs={24} sm={24} md={8}>
           <Card>
             <Statistic
               title="Critical Issues"
@@ -198,7 +187,7 @@ const Reports = () => {
           </Card>
         </Col>
 
-        <Col xs={24} md={8}>
+        <Col xs={24} sm={24} md={8}>
           <Card>
             <Statistic
               title="Medium Issues"
@@ -209,7 +198,7 @@ const Reports = () => {
           </Card>
         </Col>
 
-        <Col xs={24} md={8}>
+        <Col xs={24} sm={24} md={8}>
           <Card>
             <Statistic
               title="Low Issues"
@@ -223,11 +212,15 @@ const Reports = () => {
 
       {/* Security Posture */}
       <Card title="Security Posture" style={{ marginTop: 20 }}>
-        <Row align="middle" gutter={[24, 24]}>
+        <Row
+          align="middle"
+          gutter={[24, 24]}
+        >
           <Col xs={24} md={8}>
             <Progress
               type="circle"
               percent={riskScore}
+              size={140}
               strokeColor={
                 riskScore > 70
                   ? "#ff4d4f"
@@ -259,7 +252,11 @@ const Reports = () => {
                 <span>{count} issues</span>
               </Row>
 
-              <Progress percent={percent} showInfo={false} />
+              <Progress
+                percent={percent}
+                showInfo={false}
+                strokeColor="#1677ff"
+              />
             </div>
           );
         })}

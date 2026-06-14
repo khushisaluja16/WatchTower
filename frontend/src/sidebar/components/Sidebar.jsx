@@ -55,10 +55,10 @@ function Sidebar() {
               Scans
             </div>
           </Link>
-          <Link to="/scanResult" className="menu-link">
+          <Link to="/scan-result" className="menu-link">
             <div
               className={`menu-item ${
-                location.pathname === "/scanResult" ? "active" : ""
+                location.pathname === "/scan-result" ? "active" : ""
               }`}
             >
               <SecurityScanOutlined size={20} weight="regular" />
