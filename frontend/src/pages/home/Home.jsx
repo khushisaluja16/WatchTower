@@ -1,13 +1,12 @@
+import "./home.css";
+
 import {
   ShieldCheck,
   Bug,
-  Search,
+  MagnifyingGlass,
   Globe,
-  Zap,
-  Wrench,
-  Users,
-  Building2,
-} from "lucide-react";
+  Lightning,
+} from "phosphor-react";
 import { Breadcrumb } from "antd";
 import { useTheme } from "../../context/ThemeContext";
 import { useEffect, useState } from "react";
@@ -83,7 +82,7 @@ export default function Methodology() {
       </div>
 
       {/* ================= STATS ================= */}
-      <div style={styles.statsGrid} className="fade-in">
+      <div className="stats-grid fade-in">
         {stats.map((s, i) => (
           <AnimatedStat key={i} value={s.value} label={s.label} />
         ))}
@@ -93,7 +92,7 @@ export default function Methodology() {
       {/* ================= INTELLIGENCE MODULES ================= */}
       <h2 style={styles.sectionTitle} className="fade-in">Security Intelligence Modules</h2>
 
-      <div style={styles.modulesGrid}>
+      <div className="modules-grid">
 
         {features.map((f, i) => (
           <div
@@ -117,7 +116,7 @@ export default function Methodology() {
 
       <h2 style={styles.sectionTitle} className="fade-in">What WatchTower Does</h2>
 
-      <div style={styles.featureGrid}>
+      <div className="feature-grid">
         {whatItDoes.map((item, index) => (
           <div
             key={index}
@@ -143,7 +142,7 @@ export default function Methodology() {
 
       <h2 style={styles.sectionTitle} className="fade-in">Who WatchTower Is Built For</h2>
 
-      <div style={styles.audienceGrid}>
+      <div className="audience-grid">
         {audience.map((item, index) => (
           <div
             key={index}
@@ -172,7 +171,7 @@ export default function Methodology() {
       {/* ================= WORKFLOW ================= */}
       <h2 style={styles.sectionTitle} className="fade-in">How WatchTower Operates</h2>
 
-      <div style={styles.modulesGrid}>
+      <div className="modules-grid">
 
         {workflow.map((w, i) => (
           <div
@@ -236,7 +235,7 @@ const whatItDoes = [
     title: "Automated Vulnerability Identification",
     text:
       "Automatically scans for security weaknesses such as misconfigurations, outdated services, and injection flaws.",
-    icon: <Search size={24} />,
+    icon: <MagnifyingGlass size={24} />,
   },
   {
     title: "Risk-Focused Security Insights",
@@ -262,7 +261,7 @@ const audience = [
     title: "Organizations",
     text:
       "Improve security posture and reduce risk across applications and infrastructure.",
-    icon: <Building2 size={22} />,
+    icon: <Buildings size={22} />,
   },
 ];
 
@@ -289,13 +288,14 @@ const workflow = [
 /* ================= STYLES ================= */
 
 const styles = {
-  container: {
-    maxWidth: "1200px",
-    background: "#EDF4F2",
-    padding: "36px",
-    borderRadius: "24px",
-    color: "#0f172a",
-  },
+container: {
+  width: "100%",
+  maxWidth: "1200px",
+  background: "#EDF4F2",
+  padding: "20px",
+  boxSizing: "border-box",
+  color: "#0f172a",
+},
 
   hero: {
     marginBottom: "36px",
@@ -303,7 +303,7 @@ const styles = {
 
   title: {
     marginTop: "5px",
-    fontSize: "44px",
+    fontSize: "clamp(32px, 6vw, 44px)",
     fontWeight: "800",
     marginBottom: "6px",
   },

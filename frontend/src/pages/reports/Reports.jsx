@@ -198,7 +198,12 @@ const Reports = () => {
       />
 
       {/* Header */}
-      <Row justify="space-between" align="middle" style={{ marginTop: 12 }}>
+      <Row
+        justify="space-between"
+        align="middle"
+        gutter={[16, 16]}
+        style={{ marginTop: 12 }}
+      >
         <div>
           <Title
             level={2}
@@ -356,6 +361,7 @@ const Reports = () => {
             <Progress
               type="circle"
               percent={riskScore}
+              size={140}
               strokeColor={
                 riskScore > 70
                   ? "#ff4d4f"
@@ -441,7 +447,11 @@ const Reports = () => {
                 </span>
               </Row>
 
-              <Progress percent={percent} showInfo={false} />
+              <Progress
+                percent={percent}
+                showInfo={false}
+                strokeColor="#1677ff"
+              />
             </div>
           );
         })}
@@ -476,7 +486,9 @@ const Reports = () => {
           columns={columns}
           dataSource={data}
           expandable={{ expandedRowRender }}
+          expandable={{ expandedRowRender }}
           pagination={{ pageSize: 5 }}
+          scroll={{ x: 900 }}
         />
       </Card>
     </div>

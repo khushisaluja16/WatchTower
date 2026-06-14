@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Sidebar from "./sidebar/components/Sidebar";
@@ -100,5 +99,22 @@ function App() {
     </div>
   );
 }
+
+const styles = {
+  app: {
+    display: "flex", 
+    minHeight: "100vh",
+    background: "#edf4f2",
+  },
+
+  main: {
+    flex: 1, 
+    minHeight: "100vh",
+    padding: "20px 12px",
+    boxSizing: "border-box",
+    overflowY: "auto",
+    overflowX: "hidden"    
+  },
+};
 
 export default App;

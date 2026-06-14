@@ -105,9 +105,116 @@
       rgba(56, 189, 248, 0.18);
 }
 
-.menu-link:hover,
+/* Footer */
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 10px;
+}
+
+.menu-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.menu-item svg,
+.menu-item .anticon {
+  min-width: 22px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .menu-link:visited,
 .menu-link:active {
   color: inherit;
   text-decoration: none;
+}
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 1024px) {
+  .sidebar-wrapper {
+    width: 80px;
+  }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    width: 70px;
+  }
+
+  .sidebar {
+    padding: 10px 4px;
+    overflow-y: auto;
+  }
+
+  .sidebar-title,
+  .sidebar-section {
+    display: none;
+  }
+
+.sidebar-header {
+  justify-content: center;
+}
+
+.menu-item {
+  justify-content: center;
+  padding: 10px;
+  font-size: 0;
+}
+
+.menu-item svg {
+  min-width: 22px;
+  margin: 0;
+}
+
+.sidebar-footer {
+  margin-top: 8px;
+}
+
+  .sidebar-footer .menu-item {
+    font-size: 0;
+  }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+@media (max-width:768px){
+
+.sidebar-wrapper{
+    width:72px;
+}
+
+.sidebar-title,
+.sidebar-section{
+    display:none;
+}
+
+.menu-item{
+    justify-content:center;
+    padding:12px 0;
+}
+
+.menu-item svg{
+    display:block;
+    width:20px;
+    height:20px;
+}
+
+.sidebar-footer{
+    width:100%;
+}
+
 }
