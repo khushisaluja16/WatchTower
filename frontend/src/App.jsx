@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-
+import React, { lazy, Suspense } from "react";
 import Sidebar from "./sidebar/components/Sidebar";
 import { useTheme } from "./context/ThemeContext";
 

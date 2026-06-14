@@ -6,6 +6,9 @@ import {
   MagnifyingGlass,
   Globe,
   Lightning,
+  Wrench,
+  Users,
+  Buildings
 } from "phosphor-react";
 import { Breadcrumb } from "antd";
 import { useTheme } from "../../context/ThemeContext";
@@ -211,7 +214,7 @@ const features = [
   {
     title: "Automated Threat Detection",
     text: "Identifies common and emerging vulnerabilities using automated security scanning techniques.",
-    icon: <Search size={24} />,
+    icon: <MagnifyingGlass size={24} />,
   },
   {
     title: "Threat Intelligence Engine",

@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import {
   ChartBar,
-  WarningCircle,
+  TriangleAlert,
   ShieldCheck,
-  Bug
+  Bug,
+  BarChart3
 } from "lucide-react";
 import {
   PieChart,
@@ -121,28 +122,7 @@ const Dashboard = () => {
       date: "April 2023",
     },
   ];
-    {
-      id: "dfd9fc7",
-      target: "example.com",
-      issues: "High",
-      risk: "Medium",
-      date: "April 2023",
-    },
-    {
-      id: "b7c450a4",
-      target: "example.org",
-      issues: "High",
-      risk: "Low",
-      date: "April 2023",
-    },
-    {
-      id: "c653fdbb",
-      target: "testsite.com",
-      issues: "High",
-      risk: "Low",
-      date: "April 2023",
-    },
-  ];
+  
   const filteredData = selectedFilter
     ? data.filter(item => item.issues === selectedFilter)
     : data;
@@ -241,7 +221,7 @@ const Dashboard = () => {
         <SummaryCard
           title="Critical Issues"
           value="8"
-          icon={<WarningCircle size={20} weight="bold" color="#ef4444" />}
+          icon={<TriangleAlert size={20} color="#ef4444" />}
           iconColor="#ef4444"
           onClick={() => setSelectedFilter("High")}
           darkMode={darkMode}
@@ -499,8 +479,6 @@ const Dashboard = () => {
           </table>
         </div>
       </div>
-
-    </div>
   );
 };
 
