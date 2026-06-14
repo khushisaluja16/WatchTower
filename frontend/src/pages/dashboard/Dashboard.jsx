@@ -1,11 +1,12 @@
 import "./dashboard.css";
 import { useState } from "react";
+import { useTheme } from "../../context/ThemeContext";
 import {
   BarChart3,
   TriangleAlert,
   ShieldCheck,
   Bug
-} from "lucide-react";  
+} from "lucide-react";
 import {
   PieChart,
   Pie,
@@ -65,34 +66,59 @@ const riskData = [
 const totalRisk = riskData.reduce((acc, item) => acc + item.value, 0);
 
 const Dashboard = () => {
+
+  const { darkMode } = useTheme();
+
+  const colors = {
+    bg: darkMode
+      ? "linear-gradient(180deg,#071224 0%,#08152d 100%)"
+      : "#edf4f2",
+
+    card: darkMode
+      ? "#111827"
+      : "#ffffff",
+
+    text: darkMode
+      ? "#ffffff"
+      : "#0f172a",
+
+    secondary: darkMode
+      ? "#94a3b8"
+      : "#64748b",
+
+    border: darkMode
+      ? "#1f2937"
+      : "#e2e8f0",
+  };
+
   const [timeRange, setTimeRange] = useState("Last 24 hours");
   const [openDropdown, setOpenDropdown] = useState(false);
   const [range, setRange] = useState("7");
   const [selectedFilter, setSelectedFilter] = useState(null);
 
   const data = [
-  {
-    id: "dfd9fc7",
-    target: "example.com",
-    issues: "High",
-    risk: "Medium",
-    date: "April 2023",
-  },
-  {
-    id: "b7c450a4",
-    target: "example.org",
-    issues: "High",
-    risk: "Low",
-    date: "April 2023",
-  },
-  {
-    id: "c653fdbb",
-    target: "testsite.com",
-    issues: "High",
-    risk: "Low",
-    date: "April 2023",
-  },
-];
+    {
+      id: "dfd9fc7",
+      target: "example.com",
+      issues: "High",
+      risk: "Medium",
+      date: "April 2023",
+    },
+    {
+      id: "b7c450a4",
+      target: "example.org",
+      issues: "High",
+      risk: "Low",
+      date: "April 2023",
+    },
+    {
+      id: "c653fdbb",
+      target: "testsite.com",
+      issues: "High",
+      risk: "Low",
+      date: "April 2023",
+    },
+  ];
   const filteredData = selectedFilter
     ? data.filter(item => item.issues === selectedFilter)
     : data;
@@ -104,17 +130,37 @@ const Dashboard = () => {
       : range === "30"
         ? monthlyData
         : quarterlyData;
-        
+
   return (
-    <div style={styles.page}>
+    <div
+      style={{
+        ...styles.page,
+        background: colors.bg,
+        color: colors.text,
+      }}
+    >
 
       {/* Breadcrumb */}
-      <p style={styles.breadcrumb}>Home / Dashboard</p>
+      <p
+        style={{
+          ...styles.breadcrumb,
+          color: colors.secondary,
+        }}
+      >
+        Home / Dashboard
+      </p>
 
       {/* Header Row */}
       <div style={styles.headerRow}>
 
-        <h1 style={styles.title}>Dashboard</h1>
+        <h1
+          style={{
+            ...styles.title,
+            color: colors.text,
+          }}
+        >
+          Dashboard
+        </h1>
 
         <div style={styles.headerActions}>
           <div style={styles.dropdownWrapper}>
@@ -161,9 +207,10 @@ const Dashboard = () => {
         <SummaryCard
           title="Scans"
           value="32"
-          icon={<BarChart3 size={20} weight="bold" color="#2563eb" />}
+          icon={<BarChart3 size={20} color="#2563eb" />}
           iconColor="#2563eb"
           onClick={() => setSelectedFilter("High")}
+          darkMode={darkMode}
         />
 
         <SummaryCard
@@ -172,6 +219,7 @@ const Dashboard = () => {
           icon={<TriangleAlert size={20} weight="bold" color="#ef4444" />}
           iconColor="#ef4444"
           onClick={() => setSelectedFilter("High")}
+          darkMode={darkMode}
         />
 
         <SummaryCard
@@ -180,6 +228,7 @@ const Dashboard = () => {
           icon={<ShieldCheck size={20} weight="bold" color="#10b981" />}
           iconColor="#10b981"
           onClick={() => setSelectedFilter("High")}
+          darkMode={darkMode}
         />
 
         <SummaryCard
@@ -188,13 +237,27 @@ const Dashboard = () => {
           icon={<Bug size={20} weight="bold" color="#f59e0b" />}
           iconColor="#f59e0b"
           onClick={() => setSelectedFilter("High")}
+          darkMode={darkMode}
         />
       </div>
 
       {/* Two Column Section */}
       <div style={styles.twoColumn}>
-        <div style={styles.cardLarge}>
-          <h3 style={{ marginBottom: "20px" }}>Risk Overview</h3>
+        <div
+          style={{
+            ...styles.cardLarge,
+            background: colors.card,
+            border: `1px solid ${colors.border}`,
+          }}
+        >
+          <h3
+            style={{
+              marginBottom: "20px",
+              color: colors.text,
+            }}
+          >
+            Risk Overview
+          </h3>
 
           <div style={{ flex: 1, display: "flex", alignItems: "center" }}></div>
           <div style={styles.riskRow}>
@@ -254,9 +317,17 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div style={styles.cardLarge}>
+        <div
+          style={{
+            ...styles.cardLarge,
+            background: colors.card,
+            border: `1px solid ${colors.border}`,
+          }}
+        >
           <div style={styles.chartHeader}>
-            <h3>Recent Vulnerabilities</h3>
+            <h3 style={{ color: colors.text }}>
+              Recent Vulnerabilities
+            </h3>
             <select
               style={styles.dropdown}
               value={range}
@@ -271,15 +342,19 @@ const Dashboard = () => {
           <div style={{ width: "100%", height: 250 }}>
             <ResponsiveContainer>
               <BarChart data={chartData}>
-                <CartesianGrid strokeDasharray="2 4" stroke="#e5e7eb" />
+                <CartesianGrid
+                  stroke={darkMode ? "#334155" : "#e5e7eb"}
+                  strokeDasharray="3 3"
+                />
 
                 <XAxis
                   dataKey="label"
-                  type="category"
-                  tick={{ fill: "#6b7280" }}
+                  tick={{ fill: darkMode ? "#94a3b8" : "#0f172a" }}
                 />
 
-                <YAxis tick={{ fill: "#6b7280" }} />
+                <YAxis
+                  tick={{ fill: darkMode ? "#94a3b8" : "#0f172a" }}
+                />
 
                 <Tooltip cursor={false} />
 
@@ -296,29 +371,51 @@ const Dashboard = () => {
       </div>
 
       {/* Table Section */}
-      <div style={styles.cardLarge}>
-        <h3 style={{ marginBottom: "20px" }}>Detected Assets</h3>
+      <div
+        style={{
+          ...styles.cardLarge,
+          background: colors.card,
+          border: `1px solid ${colors.border}`,
+        }}
+      >
+        <h3
+          style={{
+            marginBottom: "20px",
+            color: colors.text,
+          }}
+        >
+          Detected Assets
+        </h3>
 
         <table style={styles.table}>
           <thead>
             <tr style={styles.tableHeadRow}>
-              <th style={styles.tableCell}>Scan ID</th>
-              <th style={styles.tableCell}>Target</th>
-              <th style={styles.tableCell}>Issues</th>
-              <th style={styles.tableCell}>Risk Level</th>
-              <th style={styles.tableCell}>Date</th>
-              <th style={styles.tableCellRight}></th>
+              <th style={{ ...styles.tableCell, color: colors.text }}>Scan ID</th>
+              <th style={{ ...styles.tableCell, color: colors.text }}>Target</th>
+              <th style={{ ...styles.tableCell, color: colors.text }}>Issues</th>
+              <th style={{ ...styles.tableCell, color: colors.text }}>Risk Level</th>
+              <th style={{ ...styles.tableCell, color: colors.text }}>Date</th>
+              <th style={{ ...styles.tableCell, color: colors.text }}></th>
             </tr>
           </thead>
 
 
           <tbody>
             {filteredData.map((row, index) => (
-              <tr key={index} style={styles.tableRow}>
-                <td style={styles.tableCell}>{row.id}</td>
-                <td style={styles.tableCell}>{row.target}</td>
+              <tr key={index} style={{ ...styles.tableRow, background: colors.card, }}>
+                <td style={{
+                  ...styles.tableCell,
+                  color: colors.text,
+                }}>{row.id}</td>
+                <td style={{
+                  ...styles.tableCell,
+                  color: colors.text,
+                }}>{row.target}</td>
 
-                <td style={styles.tableCell}>
+                <td style={{
+                  ...styles.tableCell,
+                  color: colors.text,
+                }}>
                   <span
                     style={
                       row.issues === "High"
@@ -330,7 +427,12 @@ const Dashboard = () => {
                   </span>
                 </td>
 
-                <td style={styles.tableCell}>
+                <td
+                  style={{
+                    ...styles.tableCell,
+                    color: colors.text,
+                  }}
+                >
                   <span
                     style={
                       row.risk === "Medium"
@@ -342,7 +444,10 @@ const Dashboard = () => {
                   </span>
                 </td>
 
-                <td style={styles.tableCell}>{row.date}</td>
+                <td style={{
+                  ...styles.tableCell,
+                  color: colors.text,
+                }}>{row.date}</td>
 
                 <td style={styles.tableCellRight}>›</td>
               </tr>
@@ -356,11 +461,28 @@ const Dashboard = () => {
 };
 
 
-const SummaryCard = ({ title, value, icon, iconColor, onClick }) => {
+const SummaryCard = ({
+  title,
+  value,
+  icon,
+  iconColor,
+  onClick,
+  darkMode,
+}) => {
   return (
-     <div className="summary-card" style={styles.card} onClick={onClick}>
-
-      {/* Top Row: Icon + Title */}
+    <div
+      className={`summary-card ${darkMode ? "dark" : ""
+        }`}
+      onClick={onClick}
+      style={{
+        ...styles.card,
+        background: darkMode ? "#111827" : "#ffffff",
+        border: darkMode
+          ? "1px solid #1f2937"
+          : "1px solid #e2e8f0",
+      }}
+    >
+      {/* Top Row */}
       <div style={styles.cardHeader}>
         <div
           style={{
@@ -371,12 +493,24 @@ const SummaryCard = ({ title, value, icon, iconColor, onClick }) => {
           {icon}
         </div>
 
-        <p style={styles.cardTitle}>{title}</p>
+        <p
+          style={{
+            ...styles.cardTitle,
+            color: darkMode ? "#94a3b8" : "#64748b",
+          }}
+        >
+          {title}
+        </p>
       </div>
 
-      {/* Value */}
-      <h2 style={styles.cardValue}>{value}</h2>
-
+      <h2
+        style={{
+          ...styles.cardValue,
+          color: darkMode ? "#ffffff" : "#0f172a",
+        }}
+      >
+        {value}
+      </h2>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 const STAGES = [
   { name: "Recon", action: "Resolving domain and DNS records…" },
   { name: "Reputation", action: "Checking phishing and malware databases…" },
@@ -9,7 +10,33 @@ const STAGES = [
 
 const Scans = () => {
   const navigate = useNavigate();
+  const { darkMode } = useTheme();
 
+  const colors = {
+    bg: darkMode
+      ? "linear-gradient(180deg,#071224 0%,#08152d 100%)"
+      : "#edf4f2",
+
+    card: darkMode
+      ? "#111827"
+      : "#ffffff",
+
+    text: darkMode
+      ? "#ffffff"
+      : "#0f172a",
+
+    secondary: darkMode
+      ? "#94a3b8"
+      : "#64748b",
+
+    border: darkMode
+      ? "#1f2937"
+      : "#e2e8f0",
+
+    inputBg: darkMode
+      ? "#0f172a"
+      : "#ffffff",
+  };
   const [url, setUrl] = useState("");
   const [started, setStarted] = useState(false);
   const [completed, setCompleted] = useState(false);
@@ -57,17 +84,50 @@ const Scans = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.breadcrumb}>Home / Scans</div>
-
-      <h1 style={styles.title}>Run URL Scan</h1>
+    <div
+      style={{
+        ...styles.container,
+        background: colors.bg,
+        color: colors.text,
+      }}
+    >
+      <div
+        style={{
+          ...styles.breadcrumb,
+          color: colors.secondary,
+        }}
+      >
+        Home / Scans
+      </div>
+      <h1
+        style={{
+          ...styles.title,
+          color: colors.text,
+        }}
+      >
+        Run URL Scan
+      </h1>
 
       {/* URL INPUT (before scan) */}
       {!started && (
-        <div style={styles.card}>
+        <div
+          style={{
+            ...styles.card,
+            background: colors.card,
+            border: `1px solid ${colors.border}`,
+            boxShadow: darkMode
+              ? "0 0 20px rgba(0,0,0,0.25)"
+              : "0 10px 30px rgba(15,23,42,0.06)",
+          }}
+        >
           <label style={styles.label}>Target URL</label>
           <input
-            style={styles.input}
+            style={{
+              ...styles.input,
+              background: colors.inputBg,
+              color: colors.text,
+              border: `1px solid ${colors.border}`,
+            }}
             placeholder="https://example.com"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
@@ -81,7 +141,12 @@ const Scans = () => {
       {/* LIVE SCAN */}
       {started && (
         <>
-          <p style={styles.subtitle}>
+          <p
+            style={{
+              ...styles.subtitle,
+              color: colors.secondary,
+            }}
+          >
             Live scan in progress for <b>{url}</b>
           </p>
 
@@ -93,8 +158,23 @@ const Scans = () => {
           </div>
 
           {/* Progress */}
-          <div style={styles.card}>
-            <h3 style={styles.cardTitle}>Progress</h3>
+          <div
+            style={{
+              ...styles.card,
+              background: colors.card,
+              border: `1px solid ${colors.border}`,
+              boxShadow: darkMode
+                ? "0 0 20px rgba(0,0,0,0.25)"
+                : "0 10px 30px rgba(15,23,42,0.06)",
+            }}
+          >
+
+            <h3
+              style={{
+                ...styles.cardTitle,
+                color: colors.text,
+              }}
+            >Progress</h3>
 
             <div style={styles.stageRow}>
               {STAGES.map((s, i) => (
@@ -102,7 +182,9 @@ const Scans = () => {
                   key={s.name}
                   style={{
                     ...styles.stageLabel,
-                    color: i <= stage ? "#2563eb" : "#94a3b8",
+                    color: i <= stage
+                      ? "#3b82f6"
+                      : colors.secondary,
                   }}
                 >
                   {s.name}
@@ -110,7 +192,14 @@ const Scans = () => {
               ))}
             </div>
 
-            <div style={styles.progressBar}>
+            <div
+              style={{
+                ...styles.progressBar,
+                backgroundColor: darkMode
+                  ? "#1f2937"
+                  : "#e5e7eb",
+              }}
+            >
               <div
                 style={{
                   ...styles.progressFill,
@@ -119,7 +208,12 @@ const Scans = () => {
               />
             </div>
 
-            <p style={styles.currentAction}>
+            <p
+              style={{
+                ...styles.currentAction,
+                color: colors.secondary,
+              }}
+            >
               {completed
                 ? "Scan completed successfully."
                 : STAGES[stage]?.action}
@@ -127,13 +221,41 @@ const Scans = () => {
           </div>
 
           {/* Logs */}
-          <div style={styles.card}>
-            <h3 style={styles.cardTitle}>Scan Log</h3>
+          <div
+            style={{
+              ...styles.card,
+              background: colors.card,
+              border: `1px solid ${colors.border}`,
+              boxShadow: darkMode
+                ? "0 0 20px rgba(0,0,0,0.25)"
+                : "0 10px 30px rgba(15,23,42,0.06)",
+            }}
+          >
+            <h3
+              style={{
+                ...styles.cardTitle,
+                color: colors.text,
+              }}
+            >Scan Log</h3>
 
             {logs.map((log, i) => (
               <div key={i} style={styles.logItem}>
-                <span style={styles.logTime}>{log.time}</span>
-                <span>{log.text}</span>
+                <span
+                  style={{
+                    ...styles.logTime,
+                    color: colors.secondary,
+                  }}
+                >
+                  {log.time}
+                </span>
+
+                <span
+                  style={{
+                    color: colors.text,
+                  }}
+                >
+                  {log.text}
+                </span>
               </div>
             ))}
 
@@ -146,7 +268,7 @@ const Scans = () => {
               <button
                 style={{ ...styles.primaryBtn, marginTop: "16px" }}
                 onClick={() =>
-                  navigate("/scan-result", {
+                  navigate("/scan-result/1", {
                     state: {
                       url,
                       status: "Dangerous",
@@ -168,15 +290,13 @@ const Scans = () => {
       )}
     </div>
   );
-  
+
 };
 
 const styles = {
   container: {
-    backgroundColor: "#eef5f2",
     minHeight: "100vh",
     padding: "32px",
-    color: "#0f172a",
   },
   breadcrumb: {
     fontSize: "14px",

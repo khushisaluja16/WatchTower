@@ -90,3 +90,35 @@ body,
     transform: translateY(0);
   }
 }
+.dark-table .ant-table {
+  background: #111827 !important;
+  color: white !important;
+}
+
+.dark-table .ant-table-container {
+  background: #111827 !important;
+}
+
+.dark-table .ant-table-thead > tr > th {
+  background: #1e293b !important;
+  color: white !important;
+  border-color: #374151 !important;
+}
+
+.dark-table .ant-table-tbody > tr > td {
+  background: #111827 !important;
+  color: white !important;
+  border-color: #374151 !important;
+}
+
+.dark-table .ant-table-expanded-row > td {
+  background: #0f172a !important;
+}
+
+.dark-table .ant-pagination-item {
+  background: #111827 !important;
+}
+
+.dark-table .ant-pagination-item a {
+  color: white !important;
+}

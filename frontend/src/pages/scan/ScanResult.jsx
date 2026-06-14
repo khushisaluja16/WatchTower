@@ -1,179 +1,378 @@
 import React from "react";
-import { Row, Col, Card, Typography, Button, Breadcrumb } from "antd";
-
-import {
-  DownloadOutlined,
-  ExclamationCircleFilled,
-  WarningFilled,
-  CheckCircleFilled,
-  AppstoreFilled,
-} from "@ant-design/icons";
-import { Table } from "antd";
-
-const portsColumns = [
-  { title: "Port", dataIndex: "port" },
-  { title: "Service", dataIndex: "service" },
-  { title: "Type", dataIndex: "type" },
-];
-
-const portsData = [
-  {
-    key: 1,
-    port: 80,
-    service: "Nginx / 1.14.0",
-    type: "HTTP",
-  },
-  {
-    key: 2,
-    port: 9443,
-    service: "Apache / 2.4.29",
-    type: "HTTPS",
-  },
-];
-
-const { Title, Text } = Typography;
-
-const SummaryCard = ({ icon, title, value, percent, color, subtitle }) => {
-  return (
-    <Card bordered={false} style={{ height: "100%" }}>
-      <Row align="middle" gutter={12}>
-        <Col>{icon}</Col>
-        <Col>
-          <Text strong>{title}</Text>
-        </Col>
-      </Row>
-
-      <Title level={2} style={{ color, marginTop: 12 }}>
-        {value}{" "}
-        {percent && <Text style={{ fontSize: 14, color }}>{percent}</Text>}
-      </Title>
-
-      <Text type="secondary">{subtitle}</Text>
-    </Card>
-  );
-};
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 
 const ScanResult = () => {
+  const navigate = useNavigate();
+  const { darkMode } = useTheme();
+
+  const colors = {
+    bg: darkMode
+      ? "linear-gradient(180deg,#071224 0%,#08152d 100%)"
+      : "#f4f8f7",
+
+    card: darkMode ? "#111827" : "#ffffff",
+
+    text: darkMode ? "#ffffff" : "#0f172a",
+
+    secondary: darkMode ? "#94a3b8" : "#64748b",
+
+    border: darkMode ? "#1f2937" : "#e2e8f0",
+  };
+
+  const report = {
+    target: "example.com",
+
+    network: {
+      ip: "192.168.1.100",
+      open_ports: [80, 443, 22],
+    },
+
+    summary: {
+      risk_score: 78,
+      vulnerability_count: 3,
+      open_port_count: 3,
+      ssl_grade: "B",
+    },
+
+    services: [
+      "Apache 2.4.49",
+      "OpenSSH 8.2",
+      "OpenSSL 1.1.1",
+    ],
+
+    ssl: {
+      issuer: "Let's Encrypt",
+      valid_until: "2027-05-01",
+      grade: "B",
+    },
+
+    web_checks: [
+      {
+        issue: "Missing CSP Header",
+        severity: "Medium",
+      },
+      {
+        issue: "Missing HSTS",
+        severity: "High",
+      },
+    ],
+
+    vulnerabilities: [
+      {
+        cve: "CVE-2025-1001",
+        severity: "High",
+        description: "Apache Path Traversal",
+        recommendation: "Upgrade Apache",
+      },
+
+      {
+        cve: "CVE-2025-1002",
+        severity: "Critical",
+        description: "Remote Code Execution",
+        recommendation: "Patch OpenSSL",
+      },
+    ],
+  };
+
+  const getRiskColor = (score) => {
+    if (score >= 80) return "#ef4444";
+    if (score >= 50) return "#f59e0b";
+    return "#22c55e";
+  };
+
   return (
     <div
       style={{
-        padding: 24,
+        minHeight: "100vh",
+        background: colors.bg,
+        color: colors.text,
+        padding: "40px",
       }}
     >
-      <Row
-        justify="space-between"
-        align="middle"
+      <div
         style={{
-          marginBottom: 16,
+          color: colors.secondary,
+          marginBottom: "15px",
         }}
       >
-        <Breadcrumb items={[{ title: "Home" }, { title: "Scan Results" }]} />
-        
-      </Row>{/* account card */}
-      <Row
-        gutter={24}
-        style={{ marginTop: "32px", marginBottom: 24 }}
-        justify="space-between"
-        align="middle"
+        Home / Scan Result
+      </div>
+
+      <h1
+        style={{
+          fontSize: "52px",
+          marginBottom: "10px",
+        }}
       >
-        <div>
-          <Title level={2} style={{ marginBottom: 4 }}>
-            Scan Results
-          </Title>
-          <Text type="secondary">
-            Target: <b>example.com</b> · Duration: 4.52 sec · Date: April 2023
-          </Text>
-        </div>
+        Scan Report
+      </h1>
 
-        <Button type="primary" icon={<DownloadOutlined />} size="large">
-          Download PDF
-        </Button>
-      </Row>
-      {/* scan result summary card */}
+      <p
+        style={{
+          color: colors.secondary,
+          marginBottom: "30px",
+        }}
+      >
+        Detailed vulnerability assessment report
+      </p>
 
-      <Row gutter={16} style={{ marginBottom: 24 }}>
-        <Col span={6}>
-          <SummaryCard
-            icon={<ExclamationCircleFilled style={{ color: "#ff4d4f" }} />}
-            title="Critical Issues"
-            value="3"
-            percent="(16.6%)"
-            color="#ff4d4f"
-            subtitle="Score"
-          />
-        </Col>
+      {/* TARGET INFO */}
+      <Section
+        title="Target Information"
+        colors={colors}
+      >
+        <InfoRow
+          label="Target"
+          value={report.target}
+        />
 
-        <Col span={6}>
-          <SummaryCard
-            icon={<WarningFilled style={{ color: "#faad14" }} />}
-            title="Medium Issues"
-            value="6"
-            percent="(9.75%)"
-            color="#faad14"
-            subtitle="Score"
-          />
-        </Col>
+        <InfoRow
+          label="IP Address"
+          value={report.network.ip}
+        />
 
-        <Col span={6}>
-          <SummaryCard
-            icon={<CheckCircleFilled style={{ color: "#52c41a" }} />}
-            title="Low Issues"
-            value="7"
-            percent="(44.2%)"
-            color="#52c41a"
-            subtitle="Score"
-          />
-        </Col>
+        <InfoRow
+          label="Open Ports"
+          value={report.network.open_ports.join(
+            ", "
+          )}
+        />
+      </Section>
 
-        <Col span={6}>
-          <SummaryCard
-            icon={<AppstoreFilled style={{ color: "#1890ff" }} />}
-            title="Open Ports"
-            value="2"
-            subtitle="Services exposed"
-          />
-        </Col>
-      </Row>
-      {/* Recommendations */}
-      <Row gutter={16} style={{ marginBottom: 24 }}>
-        <Col span={24}>
-          <Card title="Recommendations">
-            <ul style={{ paddingLeft: 20, margin: 0 }}>
-              <li>Upgrade Apache to version 2.4.49 for security patches.</li>
-              <li>Implement CSP and input validation to mitigate XSS risks.</li>
-              <li>
-                Close unnecessary and vulnerable ports to minimize exposure.
-              </li>
-            </ul>
-          </Card>
-        </Col>
+      {/* RISK */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns:
+            "repeat(auto-fit,minmax(220px,1fr))",
+          gap: "20px",
+          marginBottom: "30px",
+        }}
+      >
+        <RiskCard
+          title="Risk Score"
+          value={report.summary.risk_score}
+          color={getRiskColor(
+            report.summary.risk_score
+          )}
+          darkMode={darkMode}
+        />
 
-        
-      </Row>
-      {/* tables  */}
-      <Row gutter={16}>
-        <Col span={12}>
-          <Card title="Detected Ports">
-            <Table
-              columns={portsColumns}
-              dataSource={portsData}
-              pagination={false}
-            />
-          </Card>
-        </Col>
+        <RiskCard
+          title="Vulnerabilities"
+          value={
+            report.summary.vulnerability_count
+          }
+          color="#ef4444"
+          darkMode={darkMode}
+        />
 
-        <Col span={12}>
-          <Card title="Detected Ports">
-            <Table
-              columns={portsColumns}
-              dataSource={portsData}
-              pagination={false}
-            />
-          </Card>
-        </Col>
-      </Row>
+        <RiskCard
+          title="Open Ports"
+          value={report.summary.open_port_count}
+          color="#3b82f6"
+          darkMode={darkMode}
+        />
+
+        <RiskCard
+          title="SSL Grade"
+          value={report.summary.ssl_grade}
+          color="#22c55e"
+          darkMode={darkMode}
+        />
+      </div>
+
+      {/* SERVICES */}
+      <Section
+        title="Detected Services"
+        colors={colors}
+      >
+        {report.services.map((service, index) => (
+          <div key={index}>
+            • {service}
+          </div>
+        ))}
+      </Section>
+
+      {/* SSL */}
+      <Section
+        title="SSL Analysis"
+        colors={colors}
+      >
+        <InfoRow
+          label="Issuer"
+          value={report.ssl.issuer}
+        />
+
+        <InfoRow
+          label="Valid Until"
+          value={report.ssl.valid_until}
+        />
+
+        <InfoRow
+          label="Grade"
+          value={report.ssl.grade}
+        />
+      </Section>
+
+      {/* WEB CHECKS */}
+      <Section
+        title="Web Security Checks"
+        colors={colors}
+      >
+        {report.web_checks.map((item, index) => (
+          <div
+            key={index}
+            style={{
+              marginBottom: "10px",
+            }}
+          >
+            <strong>{item.issue}</strong>
+            {" - "}
+            {item.severity}
+          </div>
+        ))}
+      </Section>
+
+      {/* VULNS */}
+      <Section
+        title="Vulnerabilities"
+        colors={colors}
+      >
+        {report.vulnerabilities.map(
+          (vuln, index) => (
+            <div
+              key={index}
+              style={{
+                padding: "15px",
+                marginBottom: "15px",
+                borderRadius: "12px",
+                background: darkMode
+                  ? "#1e293b"
+                  : "#f8fafc",
+              }}
+            >
+              <h3>{vuln.cve}</h3>
+
+              <p>
+                Severity:{" "}
+                <strong>
+                  {vuln.severity}
+                </strong>
+              </p>
+
+              <p>{vuln.description}</p>
+
+              <p>
+                Recommendation:{" "}
+                {vuln.recommendation}
+              </p>
+            </div>
+          )
+        )}
+      </Section>
+
+      <button
+        onClick={() =>
+          navigate("/scan-history")
+        }
+        style={{
+          background:
+            "linear-gradient(135deg,#7c3aed,#9333ea)",
+          border: "none",
+          color: "#fff",
+          padding: "14px 24px",
+          borderRadius: "10px",
+          cursor: "pointer",
+          fontWeight: "600",
+          marginTop: "10px",
+        }}
+      >
+        Back to Scan History
+      </button>
     </div>
   );
 };
+
+const Section = ({
+  title,
+  colors,
+  children,
+}) => (
+  <div
+    style={{
+      background: colors.card,
+      borderRadius: "18px",
+      padding: "25px",
+      marginBottom: "25px",
+      border: `1px solid ${colors.border}`,
+    }}
+  >
+    <h2
+      style={{
+        marginBottom: "20px",
+      }}
+    >
+      {title}
+    </h2>
+
+    {children}
+  </div>
+);
+
+const InfoRow = ({
+  label,
+  value,
+}) => (
+  <div
+    style={{
+      marginBottom: "10px",
+    }}
+  >
+    <strong>{label}: </strong>
+    {value}
+  </div>
+);
+
+const RiskCard = ({
+  title,
+  value,
+  color,
+  darkMode,
+}) => (
+  <div
+    style={{
+      background: darkMode
+        ? "#111827"
+        : "#ffffff",
+      borderRadius: "18px",
+      padding: "24px",
+      border: `1px solid ${color}30`,
+      boxShadow: darkMode
+        ? `0 0 20px ${color}10`
+        : "0 4px 12px rgba(0,0,0,0.05)",
+    }}
+  >
+    <div
+      style={{
+        color: "#94a3b8",
+        marginBottom: "10px",
+      }}
+    >
+      {title}
+    </div>
+
+    <div
+      style={{
+        fontSize: "42px",
+        fontWeight: "700",
+        color,
+      }}
+    >
+      {value}
+    </div>
+  </div>
+);
 
 export default ScanResult;

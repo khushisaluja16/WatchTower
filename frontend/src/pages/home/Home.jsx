@@ -9,6 +9,7 @@ import {
   Building2,
 } from "lucide-react";
 import { Breadcrumb } from "antd";
+import { useTheme } from "../../context/ThemeContext";
 import { useEffect, useState } from "react";
 function AnimatedStat({ value, label }) {
   const [count, setCount] = useState(0);
@@ -39,8 +40,30 @@ function AnimatedStat({ value, label }) {
   );
 }
 export default function Methodology() {
+  const { darkMode } = useTheme();
   return (
-    <div style={styles.container}>
+    <div
+      style={{
+        ...styles.container,
+        background: darkMode
+          ? "linear-gradient(180deg,#071224 0%,#08152d 100%)"
+          : "#EDF4F2",
+        color: darkMode ? "#ffffff" : "#0f172a",
+
+        "--card-bg": darkMode ? "#111827" : "#ffffff",
+        "--card-border": darkMode
+          ? "rgba(255,255,255,0.08)"
+          : "rgba(0,0,0,0.08)",
+
+        "--text-primary": darkMode
+          ? "#ffffff"
+          : "#0f172a",
+
+        "--text-secondary": darkMode
+          ? "#94a3b8"
+          : "#475569",
+      }}
+    >
       {/* ================= HERO ================= */}
       <Breadcrumb items={[{ title: "Home" }, { title: "" }]} />
 
@@ -189,7 +212,7 @@ const features = [
   {
     title: "Automated Threat Detection",
     text: "Identifies common and emerging vulnerabilities using automated security scanning techniques.",
-    icon: <Search size={24}  />,
+    icon: <Search size={24} />,
   },
   {
     title: "Threat Intelligence Engine",
@@ -304,11 +327,11 @@ const styles = {
   },
 
   subtitle: {
-    maxWidth: "720px",
-    fontSize: "16px",
-    color: "#334155",
-    lineHeight: "1.7",
-  },
+  maxWidth: "720px",
+  fontSize: "16px",
+  color: "var(--text-secondary)",
+  lineHeight: "1.7",
+},
 
   statsGrid: {
     display: "grid",
@@ -318,12 +341,12 @@ const styles = {
   },
 
   statCard: {
-    background: "#ffffff",
-    padding: "22px",
-    borderRadius: "18px",
-    border: "1px solid rgba(0,0,0,0.08)",
-    textAlign: "center",
-  },
+  background: "var(--card-bg)",
+  padding: "22px",
+  borderRadius: "18px",
+  border: "1px solid var(--card-border)",
+  textAlign: "center",
+},
 
   statValue: {
     fontSize: "32px",
@@ -332,17 +355,18 @@ const styles = {
   },
 
   statLabel: {
-    fontSize: "13px",
-    color: "#475569",
-    textTransform: "uppercase",
-    letterSpacing: "0.6px",
-  },
+  fontSize: "13px",
+  color: "var(--text-secondary)",
+  textTransform: "uppercase",
+  letterSpacing: "0.6px",
+},
 
   sectionTitle: {
-    fontSize: "26px",
-    fontWeight: "700",
-    marginBottom: "18px",
-  },
+  fontSize: "26px",
+  fontWeight: "700",
+  marginBottom: "18px",
+  color: "var(--text-primary)",
+},
 
   featureGrid: {
     display: "grid",
@@ -352,13 +376,13 @@ const styles = {
   },
 
   featureCard: {
-    display: "flex",
-    gap: "16px",
-    padding: "22px",
-    borderRadius: "18px",
-    background: "#ffffff",
-    border: "1px solid rgba(0,0,0,0.08)",
-  },
+  display: "flex",
+  gap: "16px",
+  padding: "22px",
+  borderRadius: "18px",
+  background: "var(--card-bg)",
+  border: "1px solid var(--card-border)",
+},
 
   featureIcon: {
     minWidth: "44px",
@@ -378,10 +402,10 @@ const styles = {
   },
 
   featureText: {
-    fontSize: "14px",
-    color: "#475569",
-    lineHeight: "1.6",
-  },
+  fontSize: "14px",
+  color: "var(--text-secondary)",
+  lineHeight: "1.6",
+},
 
   workflow: {
     display: "grid",
@@ -390,12 +414,12 @@ const styles = {
   },
 
   workflowCard: {
-    background: "#ffffff",
-    padding: "22px",
-    borderRadius: "18px",
-    border: "1px solid rgba(0,0,0,0.08)",
-    position: "relative",
-  },
+  background: "var(--card-bg)",
+  padding: "22px",
+  borderRadius: "18px",
+  border: "1px solid var(--card-border)",
+  position: "relative",
+},
 
   workflowIndex: {
     position: "absolute",
@@ -413,10 +437,10 @@ const styles = {
   },
 
   workflowText: {
-    fontSize: "14px",
-    color: "#475569",
-    lineHeight: "1.6",
-  },
+  fontSize: "14px",
+  color: "var(--text-secondary)",
+  lineHeight: "1.6",
+},
   timeline: {
     marginTop: "10px",
     display: "flex",
@@ -425,14 +449,14 @@ const styles = {
   },
 
   timelineItem: {
-    display: "flex",
-    gap: "14px",
-    alignItems: "flex-start",
-    background: "#ffffff",
-    padding: "16px",
-    borderRadius: "14px",
-    border: "1px solid rgba(0,0,0,0.08)",
-  },
+  display: "flex",
+  gap: "14px",
+  alignItems: "flex-start",
+  background: "var(--card-bg)",
+  padding: "16px",
+  borderRadius: "14px",
+  border: "1px solid var(--card-border)",
+},
 
   timelineDot: {
     width: "10px",
@@ -444,15 +468,15 @@ const styles = {
   },
 
   timelineText: {
-    fontSize: "14px",
-    fontWeight: "500",
-    color: "#0f172a",
-  },
+  fontSize: "14px",
+  fontWeight: "500",
+  color: "var(--text-primary)",
+},
 
   timelineTime: {
-    fontSize: "12px",
-    color: "#64748b",
-  },
+  fontSize: "12px",
+  color: "var(--text-secondary)",
+},
   infoGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
@@ -488,14 +512,14 @@ const styles = {
   },
 
   audienceCard: {
-    background: "#ffffff",
-    padding: "22px",
-    borderRadius: "18px",
-    border: "1px solid rgba(0,0,0,0.08)",
-    display: "flex",
-    flexDirection: "column",
-    gap: "6px",
-  },
+  background: "var(--card-bg)",
+  padding: "22px",
+  borderRadius: "18px",
+  border: "1px solid var(--card-border)",
+  display: "flex",
+  flexDirection: "column",
+  gap: "6px",
+},
 
 
   audienceTitle: {
