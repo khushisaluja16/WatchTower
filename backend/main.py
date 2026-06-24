@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes.ssl_routes import router as ssl_router
 from routes.scan_routes import router as scan_router
+from routes.dashboard_routes import router as dashboard_router
 
 app = FastAPI(title="WatchTower API", version="1.0.0")
 
@@ -19,3 +20,4 @@ def root():
 
 app.include_router(ssl_router)
 app.include_router(scan_router)
+app.include_router(dashboard_router)

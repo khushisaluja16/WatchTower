@@ -70,7 +70,7 @@ function App() {
             />
 
             <Route
-              path="/scan-result/:id"
+              path="/scan-result/:scan_uuid"
               element={<ScanResult />}
             />
 
@@ -102,18 +102,18 @@ function App() {
 
 const styles = {
   app: {
-    display: "flex", 
+    display: "flex",
     minHeight: "100vh",
     background: "#edf4f2",
   },
 
   main: {
-    flex: 1, 
+    flex: 1,
     minHeight: "100vh",
     padding: "20px 12px",
     boxSizing: "border-box",
     overflowY: "auto",
-    overflowX: "hidden"    
+    overflowX: "hidden"
   },
 };
 

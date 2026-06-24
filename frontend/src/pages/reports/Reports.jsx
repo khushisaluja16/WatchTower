@@ -486,7 +486,6 @@ const Reports = () => {
           columns={columns}
           dataSource={data}
           expandable={{ expandedRowRender }}
-          expandable={{ expandedRowRender }}
           pagination={{ pageSize: 5 }}
           scroll={{ x: 900 }}
         />

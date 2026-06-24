@@ -130,7 +130,7 @@ const ScanHistory = () => {
         style={{
           display: "grid",
           gridTemplateColumns:
-  "repeat(auto-fit,minmax(220px,1fr))",
+            "repeat(auto-fit,minmax(220px,1fr))",
           gap: "20px",
           marginBottom: "30px",
         }}
@@ -260,7 +260,7 @@ const ScanHistory = () => {
                   </td>
 
                   <td style={{ ...tdStyle, color: colors.text }}>
-                    {scan.target_url}
+                    {scan.target_url || scan.target}
                   </td>
 
                   <td style={tdStyle}>
@@ -285,7 +285,7 @@ const ScanHistory = () => {
                   <td style={tdStyle}>
                     <button
                       onClick={() =>
-                        navigate(`/scan-result/${scan.id}`)
+                        navigate(`/scan-result/${scan.scan_uuid}`)
                       }
                       style={{
                         background:
@@ -307,7 +307,7 @@ const ScanHistory = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </div >
   );
 };
 

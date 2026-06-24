@@ -1,10 +1,44 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 import { useTheme } from "../../context/ThemeContext";
 
 const ScanResult = () => {
   const navigate = useNavigate();
+  const { scan_uuid } = useParams();
+
   const { darkMode } = useTheme();
+
+
+  const [report, setReport] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    const fetchReport = async () => {
+
+      try {
+
+        const response = await axios.get(
+          `http://127.0.0.1:8000/scan/report/${scan_uuid}`
+        );
+
+        setReport(response.data.report_json);
+
+      } catch (error) {
+
+        console.error(error);
+
+      } finally {
+
+        setLoading(false);
+
+      }
+    };
+
+    fetchReport();
+
+  }, [scan_uuid]);
 
   const colors = {
     bg: darkMode
@@ -20,60 +54,37 @@ const ScanResult = () => {
     border: darkMode ? "#1f2937" : "#e2e8f0",
   };
 
-  const report = {
-    target: "example.com",
+  if (loading) {
 
-    network: {
-      ip: "192.168.1.100",
-      open_ports: [80, 443, 22],
-    },
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        Loading Report...
+      </div>
+    );
+  }
 
-    summary: {
-      risk_score: 78,
-      vulnerability_count: 3,
-      open_port_count: 3,
-      ssl_grade: "B",
-    },
+  if (!report) {
 
-    services: [
-      "Apache 2.4.49",
-      "OpenSSH 8.2",
-      "OpenSSL 1.1.1",
-    ],
-
-    ssl: {
-      issuer: "Let's Encrypt",
-      valid_until: "2027-05-01",
-      grade: "B",
-    },
-
-    web_checks: [
-      {
-        issue: "Missing CSP Header",
-        severity: "Medium",
-      },
-      {
-        issue: "Missing HSTS",
-        severity: "High",
-      },
-    ],
-
-    vulnerabilities: [
-      {
-        cve: "CVE-2025-1001",
-        severity: "High",
-        description: "Apache Path Traversal",
-        recommendation: "Upgrade Apache",
-      },
-
-      {
-        cve: "CVE-2025-1002",
-        severity: "Critical",
-        description: "Remote Code Execution",
-        recommendation: "Patch OpenSSL",
-      },
-    ],
-  };
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        Report Not Found
+      </div>
+    );
+  }
 
   const getRiskColor = (score) => {
     if (score >= 80) return "#ef4444";
@@ -107,7 +118,30 @@ const ScanResult = () => {
       >
         Scan Report
       </h1>
+      <span
+        style={{
+          background:
+            report.scan_metadata?.scan_type === "deep"
+              ? "#fee2e2"
+              : "#dbeafe",
 
+          color:
+            report.scan_metadata?.scan_type === "deep"
+              ? "#dc2626"
+              : "#2563eb",
+
+          padding: "6px 12px",
+          borderRadius: "999px",
+          marginLeft: "10px",
+          fontWeight: 600
+        }}
+      >
+        {
+          report.scan_metadata?.scan_type === "deep"
+            ? "🛡 Deep Scan"
+            : "⚡ Quick Scan"
+        }
+      </span>
       <p
         style={{
           color: colors.secondary,
@@ -116,6 +150,33 @@ const ScanResult = () => {
       >
         Detailed vulnerability assessment report
       </p>
+      <Section
+        title="Executive Summary"
+        colors={colors}
+      >
+        <InfoRow
+          label="Target"
+          value={report.target}
+        />
+
+        <InfoRow
+          label="Risk Score"
+          value={report.summary.risk_score}
+        />
+
+        <InfoRow
+          label="Risk Level"
+          value={report.summary.risk_level}
+        />
+
+        <InfoRow
+          label="Scan Type"
+          value={
+            report.scan_metadata?.scan_type ||
+            "quick"
+          }
+        />
+      </Section>
 
       {/* TARGET INFO */}
       <Section
@@ -128,15 +189,24 @@ const ScanResult = () => {
         />
 
         <InfoRow
+          label="Scan Type"
+          value={report.scan_metadata?.scan_type}
+        />
+
+        <InfoRow
           label="IP Address"
-          value={report.network.ip}
+          value={
+            report.network?.ip || "Not Available"
+          }
         />
 
         <InfoRow
           label="Open Ports"
-          value={report.network.open_ports.join(
-            ", "
-          )}
+          value={
+            report.network?.open_ports?.length
+              ? report.network.open_ports.join(", ")
+              : "None Detected"
+          }
         />
       </Section>
 
@@ -168,6 +238,7 @@ const ScanResult = () => {
           darkMode={darkMode}
         />
 
+
         <RiskCard
           title="Open Ports"
           value={report.summary.open_port_count}
@@ -183,16 +254,59 @@ const ScanResult = () => {
         />
       </div>
 
+      <Section
+        title="Severity Breakdown"
+        colors={colors}
+      >
+        <InfoRow
+          label="Critical"
+          value={
+            report.severity_summary?.critical || 0
+          }
+        />
+
+        <InfoRow
+          label="High"
+          value={
+            report.severity_summary?.high || 0
+          }
+        />
+
+        <InfoRow
+          label="Medium"
+          value={
+            report.severity_summary?.medium || 0
+          }
+        />
+
+        <InfoRow
+          label="Low"
+          value={
+            report.severity_summary?.low || 0
+          }
+        />
+      </Section>
+
       {/* SERVICES */}
       <Section
         title="Detected Services"
         colors={colors}
       >
-        {report.services.map((service, index) => (
-          <div key={index}>
-            • {service}
-          </div>
-        ))}
+        {report.services?.length > 0 ? (
+
+          report.services.map((service, index) => (
+            <div key={index}>
+              • {service.service} (Port {service.port})
+            </div>
+          ))
+
+        ) : (
+
+          <p>
+            No services detected in this scan.
+          </p>
+
+        )}
       </Section>
 
       {/* SSL */}
@@ -202,17 +316,22 @@ const ScanResult = () => {
       >
         <InfoRow
           label="Issuer"
-          value={report.ssl.issuer}
+          value={
+            report.ssl_analysis?.cert_issuer ||
+            "Not Available"
+          }
         />
 
         <InfoRow
           label="Valid Until"
-          value={report.ssl.valid_until}
+          value={report.ssl_analysis?.valid_until  ||
+            "Not Available"}
         />
 
         <InfoRow
           label="Grade"
-          value={report.ssl.grade}
+          value={report.ssl_analysis?.grade  ||
+            "Not Available"}
         />
       </Section>
 
@@ -221,14 +340,14 @@ const ScanResult = () => {
         title="Web Security Checks"
         colors={colors}
       >
-        {report.web_checks.map((item, index) => (
+        {report.web_checks?.map((item, index) => (
           <div
             key={index}
             style={{
               marginBottom: "10px",
             }}
           >
-            <strong>{item.issue}</strong>
+            <strong>{item.type}</strong>
             {" - "}
             {item.severity}
           </div>
@@ -240,8 +359,10 @@ const ScanResult = () => {
         title="Vulnerabilities"
         colors={colors}
       >
-        {report.vulnerabilities.map(
-          (vuln, index) => (
+        {report.vulnerabilities?.length === 0 ? (
+          <p>No vulnerabilities found.</p>
+        ) : (
+          report.vulnerabilities.map((vuln, index) => (
             <div
               key={index}
               style={{
@@ -269,10 +390,56 @@ const ScanResult = () => {
                 {vuln.recommendation}
               </p>
             </div>
-          )
+          ))
         )}
       </Section>
 
+      <Section
+        title="Recommendations"
+        colors={colors}
+      >
+        {
+          report.recommendations?.length > 0
+            ? report.recommendations.map(
+              (item, index) => (
+                <div
+                  key={index}
+                  style={{
+                    padding: "15px",
+                    marginBottom: "15px",
+                    borderRadius: "12px",
+                    background: darkMode
+                      ? "#1e293b"
+                      : "#f8fafc",
+                  }}
+                >
+                  <h3>
+                    {item.title}
+                  </h3>
+
+                  <p>
+                    <strong>Priority:</strong>{" "}
+                    {item.priority}
+                  </p>
+
+                  <p>
+                    <strong>Impact:</strong>{" "}
+                    {item.impact}
+                  </p>
+
+                  <p>
+                    {item.description}
+                  </p>
+                </div>
+              )
+            )
+            : (
+              <p>
+                No recommendations available.
+              </p>
+            )
+        }
+      </Section>
       <button
         onClick={() =>
           navigate("/scan-history")

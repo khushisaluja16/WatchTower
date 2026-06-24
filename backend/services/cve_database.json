@@ -1,5 +1,13 @@
 {
   "Apache": {
+     "2.4.7": [
+      {
+        "cve": "CVE-2017-7679",
+        "severity": "Medium",
+        "description": "Apache mod_mime vulnerability",
+        "recommendation": "Upgrade Apache"
+      }
+    ],
     "2.4.49": [
       {
         "cve": "CVE-2021-41773",
@@ -10,6 +18,14 @@
     ]
   },
   "OpenSSH": {
+     "6.6.1": [
+      {
+        "cve": "CVE-2016-0777",
+        "severity": "High",
+        "description": "OpenSSH roaming vulnerability",
+        "recommendation": "Upgrade OpenSSH"
+      }
+    ],
     "8.2": [
       {
         "cve": "CVE-2020-15778",
