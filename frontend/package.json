@@ -12,6 +12,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.107.0",
     "antd": "^6.2.2",
+    "axios": "^1.18.0",
     "bootstrap": "^5.3.8",
     "lucide-react": "^0.562.0",
     "phosphor-react": "^1.4.1",

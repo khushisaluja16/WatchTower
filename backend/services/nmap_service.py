@@ -1,18 +1,35 @@
-#port scanning logic. Scans the port, 
+# port scanning logic. Scans the port
 
 import nmap
+import os
 
 
 class NmapService:
 
-    def scan_target(self, target):
+    def scan_target(
+        self,
+        target,
+        scan_type="quick"
+    ):
 
-        scanner = nmap.PortScanner()
+        nmap_path = r"C:\Program Files (x86)\Nmap\nmap.exe"
 
-        scanner.scan(
-            target,
-            arguments="-sV -F"
+        print("NMAP EXISTS:", os.path.exists(nmap_path))
+        print("NMAP PATH:", nmap_path)
+
+        scanner = nmap.PortScanner(
+            nmap_search_path=(nmap_path,)
         )
+
+        if scan_type == "quick":
+
+            scan_args = "-T5 -F --version-light"
+
+        else:
+
+            scan_args = "-T4 -F -sV"
+
+        scanner.scan(target, arguments=scan_args)
 
         results = {
             "target": target,
@@ -33,6 +50,7 @@ class NmapService:
                 for port in ports:
 
                     service = scanner[host][proto][port]
+                    print(service)
 
                     host_data["ports"].append({
                         "port": port,

@@ -8,7 +8,7 @@ import {
   Lightning,
   Wrench,
   Users,
-  Buildings
+  Buildings,
 } from "phosphor-react";
 import { Breadcrumb } from "antd";
 import { useTheme } from "../../context/ThemeContext";

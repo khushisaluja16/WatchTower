@@ -1,5 +1,6 @@
 import "./dashboard.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { useTheme } from "../../context/ThemeContext";
 import {
   ChartBar,
@@ -23,53 +24,11 @@ import {
 
 const isMobile = window.innerWidth <= 768;
 
-const weeklyData = [
-  { label: "Mon", value: 320, color: "#ef4444" },
-  { label: "Tue", value: 140, color: "#f97316" },
-  { label: "Wed", value: 430, color: "#f59e0b" },
-  { label: "Thu", value: 260, color: "#22c55e" },
-  { label: "Fri", value: 80, color: "#10b981" },
-  { label: "Sat", value: 460, color: "#60a5fa" },
-  { label: "Sun", value: 190, color: "#64748b" },
-];
-
-const monthlyData = [
-  { label: "Week 1", value: 800, color: "#ef4444" },
-  { label: "Week 2", value: 950, color: "#f59e0b" },
-  { label: "Week 3", value: 720, color: "#10b981" },
-  { label: "Week 4", value: 880, color: "#60a5fa" },
-];
-
-const quarterlyData = [
-  { label: "Month 1", value: 3000, color: "#ef4444" },
-  { label: "Month 2", value: 2800, color: "#f59e0b" },
-  { label: "Month 3", value: 3400, color: "#10b981" },
-];
-
-const COLORS = ["#ef4444", "#f59e0b", "#10b981"];
-
-const barData = [
-  { day: "Mon", vulnerabilities: 320, color: "#ef4444" },
-  { day: "Tue", vulnerabilities: 140, color: "#f97316" },
-  { day: "Wed", vulnerabilities: 430, color: "#f59e0b" },
-  { day: "Thu", vulnerabilities: 260, color: "#22c55e" },
-  { day: "Fri", vulnerabilities: 80, color: "#10b981" },
-  { day: "Sat", vulnerabilities: 460, color: "#60a5fa" },
-  { day: "Sun", vulnerabilities: 190, color: "#64748b" },
-];
-
-
-const riskData = [
-  { name: "Critical", value: 8, color: "#ef4444" },
-  { name: "Medium", value: 10, color: "#f59e0b" },
-  { name: "Low", value: 9, color: "#10b981" },
-];
-
-// calculate total
-const totalRisk = riskData.reduce((acc, item) => acc + item.value, 0);
-
 const Dashboard = () => {
 
+
+  const [dashboardData, setDashboardData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { darkMode } = useTheme();
 
   const colors = {
@@ -98,43 +57,61 @@ const Dashboard = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [range, setRange] = useState("7");
   const [selectedFilter, setSelectedFilter] = useState(null);
+  const riskData =
+    dashboardData?.risk_distribution
+      ? [
+        {
+          name: "Critical",
+          value: dashboardData.risk_distribution.Critical || 0,
+          color: "#ef4444"
+        },
+        {
+          name: "High",
+          value: dashboardData.risk_distribution.High || 0,
+          color: "#f97316"
+        },
+        {
+          name: "Medium",
+          value: dashboardData.risk_distribution.Medium || 0,
+          color: "#f59e0b"
+        },
+        {
+          name: "Low",
+          value: dashboardData.risk_distribution.Low || 0,
+          color: "#10b981"
+        }
+      ]
+      : [];
 
-  const data = [
-    {
-      id: "dfd9fc7",
-      target: "example.com",
-      issues: "High",
-      risk: "Medium",
-      date: "April 2023",
-    },
-    {
-      id: "b7c450a4",
-      target: "example.org",
-      issues: "High",
-      risk: "Low",
-      date: "April 2023",
-    },
-    {
-      id: "c653fdbb",
-      target: "testsite.com",
-      issues: "High",
-      risk: "Low",
-      date: "April 2023",
-    },
-  ];
-  
-  const filteredData = selectedFilter
-    ? data.filter(item => item.issues === selectedFilter)
-    : data;
+  const totalRisk = riskData.reduce(
+    (acc, item) => acc + item.value,
+    0
+  );
+
+  const data =
+    dashboardData?.recent_scans || [];
+  const filteredData = data;
 
 
   const chartData =
-    range === "7"
-      ? weeklyData
-      : range === "30"
-        ? monthlyData
-        : quarterlyData;
+    dashboardData?.vulnerability_trend || [];
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
 
+  const fetchDashboard = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:8000/dashboard/stats"
+      );
+
+      setDashboardData(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -211,7 +188,7 @@ const Dashboard = () => {
       <div className="cards-row">
         <SummaryCard
           title="Scans"
-          value="32"
+          value={dashboardData?.total_scans || 0}
           icon={<BarChart3 size={20} color="#2563eb" />}
           iconColor="#2563eb"
           onClick={() => setSelectedFilter("High")}
@@ -220,7 +197,7 @@ const Dashboard = () => {
 
         <SummaryCard
           title="Critical Issues"
-          value="8"
+          value={dashboardData?.critical_issues || 0}
           icon={<TriangleAlert size={20} color="#ef4444" />}
           iconColor="#ef4444"
           onClick={() => setSelectedFilter("High")}
@@ -229,7 +206,7 @@ const Dashboard = () => {
 
         <SummaryCard
           title="Vulnerable Assets"
-          value="15"
+          value={dashboardData?.vulnerable_assets || 0}
           icon={<ShieldCheck size={20} weight="bold" color="#10b981" />}
           iconColor="#10b981"
           onClick={() => setSelectedFilter("High")}
@@ -238,7 +215,7 @@ const Dashboard = () => {
 
         <SummaryCard
           title="Total Vulnerabilities"
-          value="27"
+          value={dashboardData?.total_vulnerabilities || 0}
           icon={<Bug size={20} weight="bold" color="#f59e0b" />}
           iconColor="#f59e0b"
           onClick={() => setSelectedFilter("High")}
@@ -310,7 +287,10 @@ const Dashboard = () => {
             {/* Right: Legend */}
             <div style={styles.legendContainer}>
               {riskData.map((item, index) => {
-                const percentage = ((item.value / totalRisk) * 100).toFixed(1);
+                const percentage =
+                  totalRisk > 0
+                    ? ((item.value / totalRisk) * 100).toFixed(1)
+                    : 0;
 
                 return (
                   <div
@@ -429,7 +409,7 @@ const Dashboard = () => {
                 <td style={{
                   ...styles.tableCell,
                   color: colors.text,
-                }}>{row.id}</td>
+                }}>{row.scan_uuid?.slice(0, 8)}</td>
                 <td style={{
                   ...styles.tableCell,
                   color: colors.text,
@@ -439,14 +419,8 @@ const Dashboard = () => {
                   ...styles.tableCell,
                   color: colors.text,
                 }}>
-                  <span
-                    style={
-                      row.issues === "High"
-                        ? styles.badgeHigh
-                        : styles.badgeLow
-                    }
-                  >
-                    ● {row.issues}
+                  <span style={styles.badgeHigh}>
+                    ● {row.vulnerability_count}
                   </span>
                 </td>
 
@@ -458,27 +432,31 @@ const Dashboard = () => {
                 >
                   <span
                     style={
-                      row.risk === "Medium"
-                        ? styles.badgeMedium
-                        : styles.badgeLow
+                      row.risk_level === "Critical"
+                        ? styles.badgeHigh
+                        : row.risk_level === "High"
+                          ? styles.badgeHigh
+                          : row.risk_level === "Medium"
+                            ? styles.badgeMedium
+                            : styles.badgeLow
                     }
                   >
-                    ● {row.risk}
+                    ● {row.risk_level}
                   </span>
                 </td>
 
                 <td style={{
                   ...styles.tableCell,
                   color: colors.text,
-                }}>{row.date}</td>
+                }}>{new Date(row.created_at).toLocaleDateString()}</td>
 
-                  <td style={styles.tableCellRight}>›</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                <td style={styles.tableCellRight}>›</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+    </div>
   );
 };
 

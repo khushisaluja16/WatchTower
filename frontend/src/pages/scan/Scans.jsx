@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+import { runScan } from "../../services/scanApi";
 const STAGES = [
   { name: "Recon", action: "Resolving domain and DNS records…" },
   { name: "Reputation", action: "Checking phishing and malware databases…" },
@@ -38,16 +39,18 @@ const Scans = () => {
       : "#ffffff",
   };
   const [url, setUrl] = useState("");
+  const [scanType, setScanType] = useState("quick");
   const [started, setStarted] = useState(false);
   const [completed, setCompleted] = useState(false);
-
+  const [scanFailed, setScanFailed] = useState(false);
   const [stage, setStage] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const [logs, setLogs] = useState([]);
+  const [scanReport, setScanReport] = useState(null);
 
   /* timer */
   useEffect(() => {
-    if (!started || completed) return;
+    if (!started || completed || scanFailed) return;
     const t = setInterval(() => setElapsed((e) => e + 1), 1000);
     return () => clearInterval(t);
   }, [started, completed]);
@@ -78,10 +81,55 @@ const Scans = () => {
     return () => clearTimeout(timeout);
   }, [stage, started, completed]);
 
-  const startScan = () => {
+  const startScan = async () => {
     if (!url) return;
-    setStarted(true);
+
+    try {
+
+      setLogs([]);
+      setStage(0);
+      setCompleted(false);
+      setScanFailed(false);
+      setStarted(true);
+
+      const report = await runScan(
+        url,
+        scanType
+      );
+
+      console.log(report);
+
+      navigate(
+        `/scan-result/${report.scan_metadata.scan_id}`,
+        {
+          state: report,
+        }
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      setScanFailed(true);
+
+      setCompleted(false);
+
+      setStage(0);
+
+      setLogs([
+        {
+          time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          text: "Scan failed"
+        }
+      ]);
+
+      alert("Scan failed");
+    }
   };
+
 
   return (
     <div
@@ -132,7 +180,38 @@ const Scans = () => {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <button style={styles.primaryBtn} onClick={startScan}>
+          <label style={styles.label}>
+            Scan Type
+          </label>
+
+          <select
+            value={scanType}
+            onChange={(e) => setScanType(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "8px",
+              marginBottom: "16px",
+              background: colors.inputBg,
+              color: colors.text,
+              border: `1px solid ${colors.border}`,
+              outline: "none",
+              cursor: "pointer",
+            }}
+          >
+            <option value="quick">
+              Quick Scan
+            </option>
+
+            <option value="deep">
+              Deep Scan
+            </option>
+          </select>
+
+          <button
+            style={styles.primaryBtn}
+            onClick={startScan}
+          >
             Start Scan
           </button>
         </div>
@@ -152,7 +231,11 @@ const Scans = () => {
 
           <div style={styles.topRow}>
             <span style={styles.liveBadge}>
-              {completed ? "Completed" : "Live"}
+              {scanFailed
+                ? "Failed"
+                : completed
+                  ? "Completed"
+                  : "Live"}
             </span>
             <span style={styles.time}>Duration: {elapsed}s</span>
           </div>
@@ -203,7 +286,9 @@ const Scans = () => {
               <div
                 style={{
                   ...styles.progressFill,
-                  width: `${(stage / STAGES.length) * 100}%`,
+                  width: scanFailed
+                    ? "0%"
+                    : `${(stage / STAGES.length) * 100}%`,
                 }}
               />
             </div>
@@ -214,9 +299,11 @@ const Scans = () => {
                 color: colors.secondary,
               }}
             >
-              {completed
-                ? "Scan completed successfully."
-                : STAGES[stage]?.action}
+              {scanFailed
+                ? "Scan failed."
+                : completed
+                  ? "Scan completed successfully."
+                  : STAGES[stage]?.action}
             </p>
           </div>
 
@@ -259,31 +346,8 @@ const Scans = () => {
               </div>
             ))}
 
-            {!completed && (
+            {completed && !scanFailed && (
               <div style={styles.scanning}>⏳ Scanning in progress…</div>
-            )}
-
-            {/* RESULT BUTTON */}
-            {completed && (
-              <button
-                style={{ ...styles.primaryBtn, marginTop: "16px" }}
-                onClick={() =>
-                  navigate("/scan-result/1", {
-                    state: {
-                      url,
-                      status: "Dangerous",
-                      score: 78,
-                      issues: [
-                        "Domain registered 9 days ago",
-                        "URL found in phishing database",
-                        "Multiple redirects detected",
-                      ],
-                    },
-                  })
-                }
-              >
-                View Scan Result
-              </button>
             )}
           </div>
         </>
